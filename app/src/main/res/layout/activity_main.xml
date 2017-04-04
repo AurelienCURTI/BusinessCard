@@ -13,5 +13,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World les amis! Ceci est un test de commit !" />
+        android:text="Bienvenue sur Business Card Generator"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/contacts_access"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Charger les contacts"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
