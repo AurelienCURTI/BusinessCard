@@ -38,11 +38,16 @@ public class BusinessCardDAO extends DAOBase{
 
     public BusinessCard selectionner(long id) {
         Cursor c = mDb.rawQuery("select " + NOM + "," + TEL + " from " + TABLE_NAME + " where "+ID+ " = ?", new String[]{String.valueOf(id)});
-        c.moveToFirst();
-        long id_res = c.getLong(0);
-        String nom_res = c.getString(1);
-        String tel_res = c.getString(2);
-        return new BusinessCard(id_res, nom_res, tel_res);
+        if(c.getCount() == 1){
+            c.moveToFirst();
+            long id_res = c.getLong(0);
+            String nom_res = c.getString(1);
+            String tel_res = c.getString(2);
+            return new BusinessCard(id_res, nom_res, tel_res);
+        }
+        else {
+            return new BusinessCard(null, null, null);
+        }
     }
 
 }
