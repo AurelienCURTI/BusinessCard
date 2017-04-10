@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class DatabaseHandler extends SQLiteOpenHelper{
-    public static final String BC_ID = "id";
+    public static final String BC_ID = "_id";
     public static final String BC_NOM = "nom";
     public static final String BC_TEL = "telephone";
 

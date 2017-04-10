@@ -10,21 +10,31 @@ import java.io.ObjectOutputStream;
  */
 
 public class BusinessCard {
+    long id;
+    String nom;
+    String telephone;
 
-    String name;
-    String number;
-
-    public BusinessCard(String name, String number){
-        this.name = name;
-        this.number = number;
+    public BusinessCard(long id, String nom, String telephone){
+        this.id = id;
+        this.nom = nom;
+        this.telephone = telephone;
     }
 
-    public String getName(){
-        return name;
+    public BusinessCard(String nom, String telephone){
+        this.nom = nom;
+        this.telephone = telephone;
     }
 
-    public String getNumber(){
-        return number;
+    public long getId(){ return this.id;}
+
+    public String getNom(){
+        return this.nom;
     }
+
+    public String getTelephone(){
+        return this.telephone;
+    }
+
+    public String toString(){return "ID : " + this.id + " NOM : " + this.nom + " TELEPHONE : " + this.telephone;}
 
 }

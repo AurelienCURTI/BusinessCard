@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 import static com.example.aurlien.businesscard.MainActivity.PICK_CONTACT_REQUEST;
 
@@ -21,12 +22,15 @@ import static com.example.aurlien.businesscard.MainActivity.PICK_CONTACT_REQUEST
  */
 
 public class SelectUsersData extends AppCompatActivity {
+    private BusinessCardDAO bcardDao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.select_users_data);
         Button create_card = (Button) findViewById(R.id.gen_bus_card);
+        bcardDao = new BusinessCardDAO(this);
+        bcardDao.open();
         final Intent intent = getIntent();
         final TextView nom_val = (TextView) findViewById(R.id.name_selected_contact);
         final TextView numero_val = (TextView) findViewById(R.id.phone_selected_contact);
@@ -41,13 +45,21 @@ public class SelectUsersData extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 BusinessCard card = new BusinessCard(nom_val.getText().toString(), numero_val.getText().toString());
+                ArrayList<BusinessCard> list;
                 try {
-                    FileOutputStream outputStream;
+                    bcardDao.supprimer(0);
+                    bcardDao.ajouter(card);
+                    list = bcardDao.recupererCartesBdd();
+                    for(BusinessCard cardload : list){
+                        Log.d("SelectActivity", card.toString());
+                    }
+
+                    /*FileOutputStream outputStream;
                     // write file in data/data/com.example.aurlien.businesscard/files
-                    outputStream = openFileOutput(card.getName() + "_card", Context.MODE_PRIVATE);
-                    outputStream.write((card.getName() + "\n").getBytes());
-                    outputStream.write((card.getNumber() + "\n").getBytes());
-                    outputStream.close();
+                    outputStream = openFileOutput(card.getNom() + "_card", Context.MODE_PRIVATE);
+                    outputStream.write((card.getNom() + "\n").getBytes());
+                    outputStream.write((card.getTelephone() + "\n").getBytes());
+                    outputStream.close();*/
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
