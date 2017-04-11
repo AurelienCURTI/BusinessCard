@@ -8,9 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
  */
 
 public abstract class DAOBase {
-    // Nous sommes à la première version de la base
     // Si je décide de la mettre à jour, il faudra changer cet attribut
-    protected final static int VERSION = 1;
+    protected final static int VERSION = 3;
     // Le nom du fichier qui représente ma base
     protected final static String NOM = "database.db";
 
@@ -31,8 +30,5 @@ public abstract class DAOBase {
         mDb.close();
     }
 
-    public SQLiteDatabase getDb() {
-        return mDb;
-    }
 
 }

@@ -10,17 +10,18 @@ import java.io.ObjectOutputStream;
  */
 
 public class BusinessCard {
-    long id;
-    String nom;
-    String telephone;
+    private int id;
+    private String nom;
+    private String telephone;
 
-    public BusinessCard(long id, String nom, String telephone){
+    /*public BusinessCard(long id, String nom, String telephone){
         this.id = id;
         this.nom = nom;
         this.telephone = telephone;
-    }
+    }*/
 
     public BusinessCard(String nom, String telephone){
+        super();
         this.nom = nom;
         this.telephone = telephone;
     }
@@ -33,6 +34,18 @@ public class BusinessCard {
 
     public String getTelephone(){
         return this.telephone;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public void setNom(String nom){
+        this.nom = nom;
+    }
+
+    public void setTelephone(String telephone){
+        this.telephone = telephone;
     }
 
     public String toString(){return "ID : " + this.id + " NOM : " + this.nom + " TELEPHONE : " + this.telephone;}

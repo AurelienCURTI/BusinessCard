@@ -3,6 +3,7 @@ package com.example.aurlien.businesscard;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -17,19 +18,18 @@ public class BusinessCardDAO extends DAOBase{
     public static final String NOM = "nom";
     public static final String TEL = "telephone";
 
-    public static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + NOM + " TEXT, " + TEL + " TEXT);";
-
-    public static final String TABLE_DROP =  "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
-
     public BusinessCardDAO(Context pContext) {
         super(pContext);
     }
 
-    public void ajouter(BusinessCard card) {
+    public void ajouter(BusinessCard card){
         ContentValues value = new ContentValues();
         value.put(BusinessCardDAO.NOM, card.getNom());
         value.put(BusinessCardDAO.TEL, card.getTelephone());
-        mDb.insert(BusinessCardDAO.TABLE_NAME, null, value);
+        long insertID = mDb.insert(BusinessCardDAO.TABLE_NAME, null, value);
+        if(insertID == -1) {
+            Log.e("BusinessCardDAO", "Erreur lors de l'insertion de " + card.toString() + " dans la base");
+        }
     }
 
     public void supprimer(long id) {
@@ -47,11 +47,11 @@ public class BusinessCardDAO extends DAOBase{
         Cursor c = mDb.rawQuery("select " + NOM + "," + TEL + " from " + TABLE_NAME + " where "+ID+ " = ?", new String[]{String.valueOf(id)});
         if(c.getCount() == 1){
             c.moveToFirst();
-            long id_res = id;
+
             String nom_res = c.getString(0);
             String tel_res = c.getString(1);
             c.close();
-            return new BusinessCard(id_res, nom_res, tel_res);
+            return new BusinessCard(nom_res, tel_res);
         }
         else {
             c.close();
@@ -64,10 +64,9 @@ public class BusinessCardDAO extends DAOBase{
         ArrayList<BusinessCard> cards = new ArrayList<BusinessCard>();
         c.moveToFirst();
         while (!c.isAfterLast()) {
-            long id_res = c.getLong(0);
-            String nom_res = c.getString(1);
-            String tel_res = c.getString(2);
-            BusinessCard card  = new BusinessCard(id_res, nom_res, tel_res);
+            BusinessCard card  = new BusinessCard(c.getString(1), c.getString(2));
+            card.setId(c.getInt(0));
+            Log.d("BCARDDAO", Integer.toString(c.getInt(0)));
             cards.add(card);
             c.moveToNext();
         }

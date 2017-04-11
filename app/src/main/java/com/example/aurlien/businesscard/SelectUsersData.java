@@ -51,7 +51,7 @@ public class SelectUsersData extends AppCompatActivity {
                     bcardDao.ajouter(card);
                     list = bcardDao.recupererCartesBdd();
                     for(BusinessCard cardload : list){
-                        Log.d("SelectActivity", card.toString());
+                        Log.d("SelectActivity", cardload.toString());
                     }
 
                     /*FileOutputStream outputStream;
