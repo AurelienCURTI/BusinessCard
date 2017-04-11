@@ -23,7 +23,7 @@
         android:visibility="invisible" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textureView"
@@ -34,10 +34,10 @@
         android:text="Email" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editText"
+        android:layout_above="@+id/email"
         android:layout_alignParentStart="true"
         android:contentDescription="Phone"
         android:ems="10"
@@ -46,7 +46,7 @@
         android:visibility="visible" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textureView"
@@ -56,11 +56,11 @@
         android:text="Date" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editText2"
-        android:layout_alignEnd="@+id/editText2"
+        android:layout_above="@+id/phone"
+        android:layout_alignEnd="@+id/phone"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name" />

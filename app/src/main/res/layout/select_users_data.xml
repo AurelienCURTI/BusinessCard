@@ -60,5 +60,15 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="40dp" />
 
+    <Button
+        android:id="@+id/aff_bus_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/gen_bus_card"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="33dp"
+        android:text="Afficher la carte de visite" />
+
 </RelativeLayout>
 

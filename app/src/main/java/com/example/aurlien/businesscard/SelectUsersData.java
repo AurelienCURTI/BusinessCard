@@ -29,6 +29,7 @@ public class SelectUsersData extends AppCompatActivity {
 
         setContentView(R.layout.select_users_data);
         Button create_card = (Button) findViewById(R.id.gen_bus_card);
+        Button afficher_card = (Button) findViewById(R.id.aff_bus_card);
         bcardDao = new BusinessCardDAO(this);
         bcardDao.open();
         final Intent intent = getIntent();
@@ -50,8 +51,8 @@ public class SelectUsersData extends AppCompatActivity {
                     bcardDao.supprimer(0);
                     bcardDao.ajouter(card);
                     list = bcardDao.recupererCartesBdd();
-                    for(BusinessCard cardload : list){
-                        Log.d("SelectActivity", cardload.toString());
+                    for (BusinessCard cardload : list) {
+                        Log.d("SelectActivity", card.toString());
                     }
 
                     /*FileOutputStream outputStream;
@@ -65,7 +66,16 @@ public class SelectUsersData extends AppCompatActivity {
                 }
             }
         });
-        // Log.d("SelectActivity", "Bonjour");
 
+        afficher_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SelectUsersData.this, CarteVisite.class);
+                //On passe ces données à l'autre activité
+                intent.putExtra("K_NOM", nom_val.getText().toString());
+                intent.putExtra("K_NUMERO", numero_val.getText().toString());
+                startActivity(intent);
+            }
+        });
     }
 }
