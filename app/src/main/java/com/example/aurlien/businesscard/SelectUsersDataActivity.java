@@ -40,7 +40,6 @@ public class SelectUsersDataActivity extends AppCompatActivity {
                 BusinessCard card = new BusinessCard(nom_val.getText().toString(), numero_val.getText().toString());
                 ArrayList<BusinessCard> list;
                 try {
-                    bcardDao.supprimer(0);
                     bcardDao.ajouter(card);
                     Intent intent = new Intent(SelectUsersDataActivity.this, ListCardsActivity.class);
                     startActivity(intent);
