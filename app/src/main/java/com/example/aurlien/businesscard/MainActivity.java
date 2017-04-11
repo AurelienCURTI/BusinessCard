@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
                 String numero = cursor.getString(column);
 
-                Intent intent = new Intent(MainActivity.this, SelectUsersData.class);
+                Intent intent = new Intent(MainActivity.this, SelectUsersDataActivity.class);
                 //On passe ces données à l'autre activité
                 intent.putExtra("K_NOM", nom);
                 intent.putExtra("K_NUMERO", numero);

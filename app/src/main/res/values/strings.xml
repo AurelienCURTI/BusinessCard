@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">BusinessCard</string>
+    <string name="title_activity_list_business_card">ListBusinessCard</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

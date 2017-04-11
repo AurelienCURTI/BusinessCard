@@ -1,27 +1,19 @@
 package com.example.aurlien.businesscard;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-
-import static com.example.aurlien.businesscard.MainActivity.PICK_CONTACT_REQUEST;
 
 /**
  * Created by Aurélien on 04/04/2017.
  */
 
-public class SelectUsersData extends AppCompatActivity {
+public class SelectUsersDataActivity extends AppCompatActivity {
     private BusinessCardDAO bcardDao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +42,8 @@ public class SelectUsersData extends AppCompatActivity {
                 try {
                     bcardDao.supprimer(0);
                     bcardDao.ajouter(card);
-                    list = bcardDao.recupererCartesBdd();
-                    for (BusinessCard cardload : list) {
-                        Log.d("SelectActivity", card.toString());
-                    }
-
-                    /*FileOutputStream outputStream;
-                    // write file in data/data/com.example.aurlien.businesscard/files
-                    outputStream = openFileOutput(card.getNom() + "_card", Context.MODE_PRIVATE);
-                    outputStream.write((card.getNom() + "\n").getBytes());
-                    outputStream.write((card.getTelephone() + "\n").getBytes());
-                    outputStream.close();*/
+                    Intent intent = new Intent(SelectUsersDataActivity.this, ListCardsActivity.class);
+                    startActivity(intent);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -70,7 +53,7 @@ public class SelectUsersData extends AppCompatActivity {
         afficher_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SelectUsersData.this, CarteVisite.class);
+                Intent intent = new Intent(SelectUsersDataActivity.this, CarteVisite.class);
                 //On passe ces données à l'autre activité
                 intent.putExtra("K_NOM", nom_val.getText().toString());
                 intent.putExtra("K_NUMERO", numero_val.getText().toString());

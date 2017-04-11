@@ -66,7 +66,6 @@ public class BusinessCardDAO extends DAOBase{
         while (!c.isAfterLast()) {
             BusinessCard card  = new BusinessCard(c.getString(1), c.getString(2));
             card.setId(c.getInt(0));
-            Log.d("BCARDDAO", Integer.toString(c.getInt(0)));
             cards.add(card);
             c.moveToNext();
         }
