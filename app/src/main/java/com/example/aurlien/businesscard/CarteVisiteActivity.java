@@ -16,10 +16,11 @@ public class CarteVisiteActivity extends AppCompatActivity {
         setContentView(R.layout.card);
         TextView nom_val = (TextView) findViewById(R.id.name);
         TextView numero_val = (TextView) findViewById(R.id.phone);
+        TextView email_val = (TextView) findViewById(R.id.email);
         Intent intent = getIntent();
             nom_val.setText(intent.getStringExtra("K_NOM"));
             numero_val.setText(intent.getStringExtra("K_NUMERO"));
-
+            email_val.setText(intent.getStringExtra("K_EMAIL"));
 
     }
 }

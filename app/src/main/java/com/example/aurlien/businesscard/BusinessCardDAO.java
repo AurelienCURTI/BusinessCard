@@ -17,6 +17,7 @@ public class BusinessCardDAO extends DAOBase{
     public static final String ID = "_id";
     public static final String NOM = "nom";
     public static final String TEL = "telephone";
+    public static final String EMAIL = "email";
 
     public BusinessCardDAO(Context pContext) {
         super(pContext);
@@ -26,6 +27,7 @@ public class BusinessCardDAO extends DAOBase{
         ContentValues value = new ContentValues();
         value.put(BusinessCardDAO.NOM, card.getNom());
         value.put(BusinessCardDAO.TEL, card.getTelephone());
+        value.put(BusinessCardDAO.EMAIL, card.getEmail());
         long insertID = mDb.insert(BusinessCardDAO.TABLE_NAME, null, value);
         if(insertID == -1) {
             Log.e("BusinessCardDAO", "Erreur lors de l'insertion de " + card.toString() + " dans la base");
@@ -40,6 +42,7 @@ public class BusinessCardDAO extends DAOBase{
         ContentValues value = new ContentValues();
         value.put(NOM, card.getNom());
         value.put(TEL, card.getTelephone());
+        value.put(TEL, card.getEmail());
         mDb.update(TABLE_NAME, value, ID  + " = ?", new String[] {String.valueOf(card.getId())});
     }
 
@@ -50,12 +53,13 @@ public class BusinessCardDAO extends DAOBase{
 
             String nom_res = c.getString(0);
             String tel_res = c.getString(1);
+            String email_res = c.getString(2);
             c.close();
-            return new BusinessCard(nom_res, tel_res);
+            return new BusinessCard(nom_res, tel_res, email_res);
         }
         else {
             c.close();
-            return new BusinessCard(null, null);
+            return new BusinessCard(null, null, null);
         }
     }
 
@@ -64,7 +68,7 @@ public class BusinessCardDAO extends DAOBase{
         ArrayList<BusinessCard> cards = new ArrayList<BusinessCard>();
         c.moveToFirst();
         while (!c.isAfterLast()) {
-            BusinessCard card  = new BusinessCard(c.getString(1), c.getString(2));
+            BusinessCard card  = new BusinessCard(c.getString(1), c.getString(2), c.getString(3));
             card.setId(c.getInt(0));
             cards.add(card);
             c.moveToNext();

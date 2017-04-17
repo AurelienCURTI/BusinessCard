@@ -13,6 +13,7 @@ public class BusinessCard {
     private int id;
     private String nom;
     private String telephone;
+    private String email;
 
     /*public BusinessCard(long id, String nom, String telephone){
         this.id = id;
@@ -20,10 +21,11 @@ public class BusinessCard {
         this.telephone = telephone;
     }*/
 
-    public BusinessCard(String nom, String telephone){
+    public BusinessCard(String nom, String telephone, String email){
         super();
         this.nom = nom;
         this.telephone = telephone;
+        this.email = email;
     }
 
     public long getId(){ return this.id;}
@@ -34,6 +36,10 @@ public class BusinessCard {
 
     public String getTelephone(){
         return this.telephone;
+    }
+
+    public String getEmail(){
+        return this.email;
     }
 
     public void setId(int id){
@@ -48,6 +54,10 @@ public class BusinessCard {
         this.telephone = telephone;
     }
 
-    public String toString(){return "ID : " + this.id + " NOM : " + this.nom + " TELEPHONE : " + this.telephone;}
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public String toString(){return "ID : " + this.id + " NOM : " + this.nom + " TELEPHONE : " + this.telephone + " EMAIL : " + this.email;}
 
 }

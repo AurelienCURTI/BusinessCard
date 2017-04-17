@@ -12,13 +12,15 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     public static final String BC_ID = "_id";
     public static final String BC_NOM = "nom";
     public static final String BC_TEL = "telephone";
+    public static final String BC_EMAIL = "email";
 
     public static final String BC_TABLE_NAME = "Businesscard";
     public static final String BC_TABLE_CREATE =
             "CREATE TABLE " + BC_TABLE_NAME + " (" +
                     BC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     BC_NOM + " TEXT, " +
-                    BC_TEL + " TEXT);";
+                    BC_TEL + " TEXT, " +
+                    BC_EMAIL + " TEXT);";
 
     public static final String METIER_TABLE_DROP = "DROP TABLE IF EXISTS " + BC_TABLE_NAME + ";";
 

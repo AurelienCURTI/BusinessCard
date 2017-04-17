@@ -27,17 +27,18 @@ public class SelectUsersDataActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         final TextView nom_val = (TextView) findViewById(R.id.name_selected_contact);
         final TextView numero_val = (TextView) findViewById(R.id.phone_selected_contact);
+        final TextView email_val = (TextView) findViewById(R.id.email_selected_contact);
 
         if (intent != null) {
             nom_val.setText(intent.getStringExtra("K_NOM"));
             numero_val.setText(intent.getStringExtra("K_NUMERO"));
-
+            email_val.setText(intent.getStringExtra("K_EMAIL"));
         }
 
         create_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BusinessCard card = new BusinessCard(nom_val.getText().toString(), numero_val.getText().toString());
+                BusinessCard card = new BusinessCard(nom_val.getText().toString(), numero_val.getText().toString(), email_val.getText().toString());
                 ArrayList<BusinessCard> list;
                 try {
                     bcardDao.ajouter(card);
@@ -56,6 +57,7 @@ public class SelectUsersDataActivity extends AppCompatActivity {
                 //On passe ces données à l'autre activité
                 intent.putExtra("K_NOM", nom_val.getText().toString());
                 intent.putExtra("K_NUMERO", numero_val.getText().toString());
+                intent.putExtra("K_EMAIL", email_val.getText().toString());
                 startActivity(intent);
             }
         });

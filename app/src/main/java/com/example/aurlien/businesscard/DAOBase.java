@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public abstract class DAOBase {
     // Si je décide de la mettre à jour, il faudra changer cet attribut
-    protected final static int VERSION = 3;
+    protected final static int VERSION = 4;
     // Le nom du fichier qui représente ma base
     protected final static String NOM = "database.db";
 
