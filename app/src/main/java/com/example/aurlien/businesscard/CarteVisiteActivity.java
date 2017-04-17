@@ -9,7 +9,7 @@ import android.widget.TextView;
  * Created by Michael on 11/04/2017.
  */
 
-public class CarteVisite extends AppCompatActivity {
+public class CarteVisiteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

@@ -52,7 +52,7 @@ public class SelectUsersDataActivity extends AppCompatActivity {
         afficher_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SelectUsersDataActivity.this, CarteVisite.class);
+                Intent intent = new Intent(SelectUsersDataActivity.this, CarteVisiteActivity.class);
                 //On passe ces données à l'autre activité
                 intent.putExtra("K_NOM", nom_val.getText().toString());
                 intent.putExtra("K_NUMERO", numero_val.getText().toString());

@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CarteVisite">
+        <activity android:name=".CarteVisiteActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
