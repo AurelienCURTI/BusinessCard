@@ -60,4 +60,6 @@ public class BusinessCard {
 
     public String toString(){return "ID : " + this.id + " NOM : " + this.nom + " TELEPHONE : " + this.telephone + " EMAIL : " + this.email;}
 
+    public String serializeJSON(){return"{'ID':"+this.id+",'NOM':"+this.nom+",'TELEPHONE':"+this.telephone+",'EMAIL':"+this.email+"}";}
+
 }
