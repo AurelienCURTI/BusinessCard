@@ -3,7 +3,9 @@ package com.example.aurlien.businesscard;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.ContactsContract;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
             // On verifie que la requete est correcte
             if (resultCode == RESULT_OK) {
                 // Uri qui pointe sur le contact selectionné
+                String email = "";
                 Uri contactUri = data.getData();
                 // On definis ce que l'on souhaite récupéré via notre requete
                 String[] projection = {
@@ -47,23 +50,20 @@ public class MainActivity extends AppCompatActivity {
                 };
 
                 String[] projectionEmail = {
-                        ContactsContract.CommonDataKinds.Email.ADDRESS
+                        ContactsContract.Data.DATA1
                 };
+                Cursor emailCur = getContentResolver().query(
+                        ContactsContract.Data.CONTENT_URI,
+                        null,
+                        ContactsContract.Data.HAS_PHONE_NUMBER + "!=0 AND (" + ContactsContract.Data.MIMETYPE + "=? OR " + ContactsContract.Data.MIMETYPE + "=?)",
+                        new String[]{ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE},
+                        ContactsContract.Data.CONTACT_ID);
 
                 // Interrogation de la base de données de contact du téléphone
                 Cursor cursor = getContentResolver()
                         .query(contactUri, projection, null, null, null);
                 cursor.moveToFirst();
 
-                //int id = cursor.getColumnIndex(ContactsContract.Contacts._ID);
-                /*
-                Cursor cursorEmail = getContentResolver().query(
-                        ContactsContract.CommonDataKinds.Email.CONTENT_URI,
-                        projectionEmail,
-                        ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?",
-                        new String[]{"1"}, null); //TODO : Recuperer l'id correspondant au contact actuel (ici 1 pour le 1er contact)
-                cursorEmail.moveToFirst();
-                */
                 // Retrouver le nom
                 int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
                 String nom = cursor.getString(column);
@@ -72,14 +72,20 @@ public class MainActivity extends AppCompatActivity {
                 column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
                 String numero = cursor.getString(column);
 
-                //int columnEmail = cursorEmail.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS);
-                //String email = cursorEmail.getString(columnEmail);
+                while(emailCur.moveToNext()) {
+                    //long id = emailCur.getLong(emailCur.getColumnIndex(ContactsContract.Data.CONTACT_ID));
+                    String name = emailCur.getString(emailCur.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
+                    String data1 = emailCur.getString(emailCur.getColumnIndex(ContactsContract.Data.DATA1));
+                    if(name.equals(nom)){
+                        email = data1;
+                    }
+                }
 
                 Intent intent = new Intent(MainActivity.this, SelectUsersDataActivity.class);
                 //On passe ces données à l'autre activité
                 intent.putExtra("K_NOM", nom);
                 intent.putExtra("K_NUMERO", numero);
-                //intent.putExtra("K_EMAIL", email);
+                intent.putExtra("K_EMAIL", email);
 
                 startActivity(intent);
             }

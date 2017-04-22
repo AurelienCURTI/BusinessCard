@@ -42,7 +42,7 @@ public class BusinessCardDAO extends DAOBase{
         ContentValues value = new ContentValues();
         value.put(NOM, card.getNom());
         value.put(TEL, card.getTelephone());
-        value.put(TEL, card.getEmail());
+        value.put(EMAIL, card.getEmail());
         mDb.update(TABLE_NAME, value, ID  + " = ?", new String[] {String.valueOf(card.getId())});
     }
 
