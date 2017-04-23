@@ -3,18 +3,16 @@ package com.example.aurlien.businesscard;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
-import android.provider.ContactsContract;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.ContactsContract;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import static android.R.attr.id;
 
 public class MainActivity extends AppCompatActivity {
+
+
     private android.widget.Button contact_list;
     private static final String TAG = "MyActivity";
     static final int PICK_CONTACT_REQUEST = 1;
@@ -91,8 +89,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
-
 }
