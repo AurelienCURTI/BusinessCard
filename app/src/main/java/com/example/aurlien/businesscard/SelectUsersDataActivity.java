@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class SelectUsersDataActivity extends AppCompatActivity {
         setContentView(R.layout.select_users_data);
         Button create_card = (Button) findViewById(R.id.gen_bus_card);
         Button afficher_card = (Button) findViewById(R.id.aff_bus_card);
+        final CheckBox checkBox_email = (CheckBox) findViewById(R.id.checkBox_email);
         bcardDao = new BusinessCardDAO(this);
         bcardDao.open();
         final Intent intent = getIntent();
@@ -38,7 +40,11 @@ public class SelectUsersDataActivity extends AppCompatActivity {
         create_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BusinessCard card = new BusinessCard(nom_val.getText().toString(), numero_val.getText().toString(), email_val.getText().toString());
+                BusinessCard card = new BusinessCard(nom_val.getText().toString(), numero_val.getText().toString());
+                if (checkBox_email.isChecked()){
+                    card.setEmail(email_val.getText().toString());
+                }
+                //BusinessCard card = new BusinessCard(nom_val.getText().toString(), numero_val.getText().toString(), email_val.getText().toString());
                 ArrayList<BusinessCard> list;
                 try {
                     bcardDao.ajouter(card);
@@ -57,7 +63,9 @@ public class SelectUsersDataActivity extends AppCompatActivity {
                 //On passe ces données à l'autre activité
                 intent.putExtra("K_NOM", nom_val.getText().toString());
                 intent.putExtra("K_NUMERO", numero_val.getText().toString());
-                intent.putExtra("K_EMAIL", email_val.getText().toString());
+                if (checkBox_email.isChecked()){
+                    intent.putExtra("K_EMAIL", email_val.getText().toString());
+                }
                 startActivity(intent);
             }
         });

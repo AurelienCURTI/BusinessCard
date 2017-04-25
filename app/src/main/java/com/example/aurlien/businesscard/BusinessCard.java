@@ -15,11 +15,11 @@ public class BusinessCard {
     private String telephone;
     private String email;
 
-    /*public BusinessCard(long id, String nom, String telephone){
-        this.id = id;
+    public BusinessCard(String nom, String telephone){
+        super();
         this.nom = nom;
         this.telephone = telephone;
-    }*/
+    }
 
     public BusinessCard(String nom, String telephone, String email){
         super();

@@ -11,13 +11,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="35dp"
         android:text="Nom :"
         android:textColor="#000000"
         android:textStyle="bold"
         android:id="@+id/textView"
+        android:layout_marginEnd="48dp"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/textView2" />
+        android:layout_toStartOf="@+id/name_selected_contact" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,20 +26,19 @@
         android:text="Téléphone :"
         android:textStyle="bold"
         android:textColor="#000000"
-        android:layout_marginStart="13dp"
         android:id="@+id/textView2"
         android:layout_alignBaseline="@+id/phone_selected_contact"
         android:layout_alignBottom="@+id/phone_selected_contact"
-        android:layout_alignParentStart="true" />
+        android:layout_alignStart="@+id/textView" />
 
     <TextView
         android:id="@+id/name_selected_contact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="12"
-        android:layout_alignBaseline="@+id/textView"
-        android:layout_alignBottom="@+id/textView"
-        android:layout_alignStart="@+id/phone_selected_contact" />
+        android:layout_above="@+id/phone_selected_contact"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="18dp" />
 
     <TextView
         android:id="@+id/phone_selected_contact"
@@ -47,9 +47,8 @@
         android:ems="12"
         android:inputType="phone"
         android:layout_marginTop="15dp"
-        android:layout_marginStart="34dp"
         android:layout_below="@+id/textView"
-        android:layout_toEndOf="@+id/textView2" />
+        android:layout_toEndOf="@+id/textView" />
 
     <Button
         android:id="@+id/gen_bus_card"
@@ -70,25 +69,26 @@
         android:layout_marginBottom="33dp"
         android:text="Afficher la carte de visite" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:textStyle="bold"
-        android:textColor="#000000"
+
+    <CheckBox
+        android:id="@+id/checkBox_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="18dp"
+        android:text="Email :"
+        android:textColor="#000000"
+        android:textStyle="bold"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="14dp"
-        android:text="Email :" />
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/email_selected_contact" />
 
     <TextView
         android:id="@+id/email_selected_contact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_alignEnd="@+id/phone_selected_contact"
-        android:layout_alignStart="@+id/phone_selected_contact"
-        android:text="TextView" />
+        android:layout_alignBaseline="@+id/checkBox_email"
+        android:layout_alignBottom="@+id/checkBox_email"
+        android:layout_toEndOf="@+id/textView2" />
 
 </RelativeLayout>
 
