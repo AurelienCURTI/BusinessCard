@@ -1,14 +1,21 @@
 package com.example.aurlien.businesscard;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
 import java.util.ArrayList;
 
 public class ListCardsActivity extends ListActivity {
     private BusinessCardDAO bcardDao;
     ArrayAdapter<String> listAdapter;
     ArrayList<BusinessCard> lbcards;
+    private static final String TAG = "MyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +29,23 @@ public class ListCardsActivity extends ListActivity {
             listAdapter.add(card.toString());
         }
         getListView().setAdapter(listAdapter);
+        ListView lv = getListView();
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int position,
+                                    long arg3)
+            {
+                String nom = lbcards.get(position).getNom();
+                String telephone = lbcards.get(position).getTelephone();
+                String email = lbcards.get(position).getEmail();
+                Intent intent = new Intent(ListCardsActivity.this, CarteVisiteActivity.class);
+                //On passe ces données à l'autre activité
+                intent.putExtra("K_NOM", nom);
+                intent.putExtra("K_NUMERO", telephone);
+                intent.putExtra("K_EMAIL", email);
+                startActivity(intent);
+            }
+        });
     }
 }
