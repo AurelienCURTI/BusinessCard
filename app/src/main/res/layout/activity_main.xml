@@ -26,4 +26,14 @@
         android:text="Charger les contacts"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/cards_access"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/contacts_access"
+        android:layout_alignStart="@+id/contacts_access"
+        android:layout_below="@+id/contacts_access"
+        android:layout_marginTop="13dp"
+        android:text="Afficher les cartes" />
 </RelativeLayout>

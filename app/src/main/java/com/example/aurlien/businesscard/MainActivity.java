@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private android.widget.Button contact_list;
+    private android.widget.Button cards_list;
     private static final String TAG = "MyActivity";
     static final int PICK_CONTACT_REQUEST = 1;
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         contact_list = (Button)findViewById(R.id.contacts_access);
+        cards_list = (Button)findViewById(R.id.cards_access);
         contact_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -30,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
             }
         });
+        cards_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ListCardsActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
