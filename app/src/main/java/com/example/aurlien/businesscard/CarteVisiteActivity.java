@@ -29,7 +29,7 @@ public class CarteVisiteActivity extends AppCompatActivity {
         TextView nom_val = (TextView) findViewById(R.id.name);
         TextView numero_val = (TextView) findViewById(R.id.phone);
         TextView email_val = (TextView) findViewById(R.id.email);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
 
         nom_val.setText(intent.getStringExtra("K_NOM"));
         numero_val.setText(intent.getStringExtra("K_NUMERO"));
@@ -43,7 +43,6 @@ public class CarteVisiteActivity extends AppCompatActivity {
                 startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
             }
         });
-
     }
 
     @Override
@@ -70,7 +69,7 @@ public class CarteVisiteActivity extends AppCompatActivity {
 
                 // Get the default instance of SmsManager
                 SmsManager smsManager = SmsManager.getDefault();
-                String smsBody = "toto";
+                String smsBody = "{nom:" + card.getNom() +",numero:" + card.getTelephone() + ",email:" + card.getEmail() + "}";
                 // Send a text based SMS
                 smsManager.sendTextMessage(phoneNumber, null, smsBody, null, null);
                 Context context = getApplicationContext();

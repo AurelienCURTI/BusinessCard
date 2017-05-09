@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by Aurélien on 18/04/2017.
@@ -45,6 +46,7 @@ public class SMSReceiveListener  extends BroadcastReceiver {
 
             // Display the entire SMS Message
             Log.d(TAG, str);
+            Toast.makeText(context, "msg : " + str, Toast.LENGTH_LONG).show();
         }
     }
 }
