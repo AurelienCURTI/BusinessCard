@@ -13,6 +13,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     public static final String BC_NOM = "nom";
     public static final String BC_TEL = "telephone";
     public static final String BC_EMAIL = "email";
+    public static final String BC_ADDRESS = "address";
 
     public static final String BC_TABLE_NAME = "Businesscard";
     public static final String BC_TABLE_CREATE =
@@ -20,7 +21,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                     BC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     BC_NOM + " TEXT, " +
                     BC_TEL + " TEXT, " +
-                    BC_EMAIL + " TEXT);";
+                    BC_EMAIL + " TEXT, " +
+                    BC_ADDRESS + " TEXT);";
 
     public static final String METIER_TABLE_DROP = "DROP TABLE IF EXISTS " + BC_TABLE_NAME + ";";
 

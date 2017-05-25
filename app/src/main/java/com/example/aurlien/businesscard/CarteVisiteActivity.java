@@ -29,12 +29,14 @@ public class CarteVisiteActivity extends AppCompatActivity {
         TextView nom_val = (TextView) findViewById(R.id.name);
         TextView numero_val = (TextView) findViewById(R.id.phone);
         TextView email_val = (TextView) findViewById(R.id.email);
+        TextView address_val = (TextView) findViewById(R.id.address);
         final Intent intent = getIntent();
 
         nom_val.setText(intent.getStringExtra("K_NOM"));
         numero_val.setText(intent.getStringExtra("K_NUMERO"));
         email_val.setText(intent.getStringExtra("K_EMAIL"));
-        card = new BusinessCard(intent.getStringExtra("K_NOM"), intent.getStringExtra("K_NUMERO"), intent.getStringExtra("K_EMAIL"));
+        address_val.setText(intent.getStringExtra("K_ADDRESS"));
+        card = new BusinessCard(intent.getStringExtra("K_NOM"), intent.getStringExtra("K_NUMERO"), intent.getStringExtra("K_EMAIL"), intent.getStringExtra("K_ADDRESS"));
         send_sms_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +71,7 @@ public class CarteVisiteActivity extends AppCompatActivity {
 
                 // Get the default instance of SmsManager
                 SmsManager smsManager = SmsManager.getDefault();
-                String smsBody = "{nom:" + card.getNom() +",numero:" + card.getTelephone() + ",email:" + card.getEmail() + "}";
+                String smsBody = "{nom:" + card.getNom() +",numero:" + card.getTelephone() + ",email:" + card.getEmail() + ",address:" + card.getAddress() + "}";
                 // Send a text based SMS
                 smsManager.sendTextMessage(phoneNumber, null, smsBody, null, null);
                 Context context = getApplicationContext();

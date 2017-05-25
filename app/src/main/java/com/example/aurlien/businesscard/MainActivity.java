@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -50,11 +51,13 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Uri qui pointe sur le contact selectionné
                 String email = "";
+                String address = "";
                 Uri contactUri = data.getData();
                 // On definis ce que l'on souhaite récupéré via notre requete
                 String[] projection = {
                         ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
                         ContactsContract.CommonDataKinds.Phone.NUMBER,
+                        ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS
                 };
 
                 String[] projectionEmail = {
@@ -65,6 +68,13 @@ public class MainActivity extends AppCompatActivity {
                         null,
                         ContactsContract.Data.HAS_PHONE_NUMBER + "!=0 AND (" + ContactsContract.Data.MIMETYPE + "=? OR " + ContactsContract.Data.MIMETYPE + "=?)",
                         new String[]{ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE},
+                        ContactsContract.Data.CONTACT_ID);
+
+                Cursor addresseCur = getContentResolver().query(
+                        ContactsContract.Data.CONTENT_URI,
+                        null,
+                        ContactsContract.Data.HAS_PHONE_NUMBER + "!=0 AND (" + ContactsContract.Data.MIMETYPE + "=? OR " + ContactsContract.Data.MIMETYPE + "=?)",
+                        new String[]{ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE},
                         ContactsContract.Data.CONTACT_ID);
 
                 // Interrogation de la base de données de contact du téléphone
@@ -80,20 +90,31 @@ public class MainActivity extends AppCompatActivity {
                 column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
                 String numero = cursor.getString(column);
 
+
                 while(emailCur.moveToNext()) {
                     //long id = emailCur.getLong(emailCur.getColumnIndex(ContactsContract.Data.CONTACT_ID));
                     String name = emailCur.getString(emailCur.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
-                    String data1 = emailCur.getString(emailCur.getColumnIndex(ContactsContract.Data.DATA1));
+                    String dataEmail = emailCur.getString(emailCur.getColumnIndex(ContactsContract.Data.DATA1));
                     if(name.equals(nom)){
-                        email = data1;
+                        email = dataEmail;
                     }
                 }
+                while(addresseCur.moveToNext()) {
+                    //long id = emailCur.getLong(emailCur.getColumnIndex(ContactsContract.Data.CONTACT_ID));
+                    String name = addresseCur.getString(addresseCur.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
+                    String dataAddress = addresseCur.getString(addresseCur.getColumnIndex(ContactsContract.Data.DATA1));
+                    if(name.equals(nom)){
+                        address = dataAddress;
+                    }
+                }
+
 
                 Intent intent = new Intent(MainActivity.this, SelectUsersDataActivity.class);
                 //On passe ces données à l'autre activité
                 intent.putExtra("K_NOM", nom);
                 intent.putExtra("K_NUMERO", numero);
                 intent.putExtra("K_EMAIL", email);
+                intent.putExtra("K_ADDRESS", address);
 
                 startActivity(intent);
             }

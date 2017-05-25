@@ -39,11 +39,13 @@ public class ListCardsActivity extends ListActivity {
                 String nom = lbcards.get(position).getNom();
                 String telephone = lbcards.get(position).getTelephone();
                 String email = lbcards.get(position).getEmail();
+                String address = lbcards.get(position).getAddress();
                 Intent intent = new Intent(ListCardsActivity.this, CarteVisiteActivity.class);
                 //On passe ces données à l'autre activité
                 intent.putExtra("K_NOM", nom);
                 intent.putExtra("K_NUMERO", telephone);
                 intent.putExtra("K_EMAIL", email);
+                intent.putExtra("K_ADDRESS", address);
                 startActivity(intent);
             }
         });

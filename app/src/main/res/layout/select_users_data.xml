@@ -90,5 +90,24 @@
         android:layout_alignBottom="@+id/checkBox_email"
         android:layout_toEndOf="@+id/textView2" />
 
+    <CheckBox
+        android:id="@+id/checkBox_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/checkBox_email"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/checkBox_email"
+        android:text="Address : "
+        android:textColor="#000000"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/address_selected_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/checkBox_address"
+        android:layout_alignBottom="@+id/checkBox_address"
+        android:layout_toEndOf="@+id/checkBox_address" />
+
 </RelativeLayout>
 

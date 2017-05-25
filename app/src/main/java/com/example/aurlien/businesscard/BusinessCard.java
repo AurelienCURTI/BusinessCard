@@ -14,6 +14,7 @@ public class BusinessCard {
     private String nom;
     private String telephone;
     private String email;
+    private String address;
 
     public BusinessCard(String nom, String telephone){
         super();
@@ -28,6 +29,14 @@ public class BusinessCard {
         this.email = email;
     }
 
+    public BusinessCard(String nom, String telephone, String email, String address){
+        super();
+        this.nom = nom;
+        this.telephone = telephone;
+        this.email = email;
+        this.address = address;
+    }
+
     public long getId(){ return this.id;}
 
     public String getNom(){
@@ -40,6 +49,10 @@ public class BusinessCard {
 
     public String getEmail(){
         return this.email;
+    }
+
+    public String getAddress(){
+        return this.address;
     }
 
     public void setId(int id){
@@ -58,8 +71,12 @@ public class BusinessCard {
         this.email = email;
     }
 
-    public String toString(){return "ID : " + this.id + " NOM : " + this.nom + " TELEPHONE : " + this.telephone + " EMAIL : " + this.email;}
+    public void setAddress(String address){
+        this.address = address;
+    }
 
-    public String serializeJSON(){return"{'ID':"+this.id+",'NOM':"+this.nom+",'TELEPHONE':"+this.telephone+",'EMAIL':"+this.email+"}";}
+    public String toString(){return "ID : " + this.id + " NOM : " + this.nom + " TELEPHONE : " + this.telephone + " EMAIL : " + this.email + " ADDRESS : " + this.address;}
+
+    public String serializeJSON(){return"{'ID':"+this.id+",'NOM':"+this.nom+",'TELEPHONE':"+this.telephone+",'EMAIL':"+this.email+",'ADDRESS':"+this.address+"}";}
 
 }
