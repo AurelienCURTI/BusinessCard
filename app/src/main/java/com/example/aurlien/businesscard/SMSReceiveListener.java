@@ -35,8 +35,8 @@ public class SMSReceiveListener  extends BroadcastReceiver {
             }
 
             if (address != null) {
-                /*JSONObject cardReceived = str.getJSONObject("card");
-                String nom =*/
+                str = str.replace("(", "{");
+                str = str.replace(")","}");
                 Log.d("MESSAGE RECU", str.toString());
             }
 

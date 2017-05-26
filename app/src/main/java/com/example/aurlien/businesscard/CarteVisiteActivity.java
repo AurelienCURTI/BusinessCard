@@ -80,11 +80,13 @@ public class CarteVisiteActivity extends AppCompatActivity {
                 JSONObject object;
                 try{
                     object = new JSONObject();
-                    object.put("nom", "toto");
-                    /*object.put("numero", card.getTelephone());
+                    object.put("nom", card.getNom());
+                    object.put("numero", card.getTelephone());
                     object.put("email", card.getEmail());
-                    object.put("adress", card.getAddress());*/
-                    smsBody = "card:(test)";
+                    object.put("adress", card.getAddress());
+                    smsBody = object.toString();
+                    smsBody = smsBody.replace("{", "(");
+                    smsBody = smsBody.replace("}", ")");
                     Log.d("SMS ENVOYE", smsBody);
                     smsManager.sendTextMessage(phoneNumber, null, smsBody, null, null);
                 }
