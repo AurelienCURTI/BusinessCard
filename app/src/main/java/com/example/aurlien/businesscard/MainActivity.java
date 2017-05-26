@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -16,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     private android.widget.Button contact_list;
     private android.widget.Button cards_list;
+    private android.widget.Button google_maps_list;
     private static final String TAG = "MyActivity";
     static final int PICK_CONTACT_REQUEST = 1;
 
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         contact_list = (Button)findViewById(R.id.contacts_access);
         cards_list = (Button)findViewById(R.id.cards_access);
+        google_maps_list = (Button) findViewById(R.id.google_maps_access);
         contact_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ListCardsActivity.class);
+                startActivity(intent);
+            }
+        });
+        google_maps_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
                 startActivity(intent);
             }
         });

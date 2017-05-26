@@ -36,4 +36,14 @@
         android:layout_below="@+id/contacts_access"
         android:layout_marginTop="13dp"
         android:text="Afficher les cartes" />
+
+    <Button
+        android:id="@+id/google_maps_access"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/cards_access"
+        android:layout_alignStart="@+id/cards_access"
+        android:layout_below="@+id/cards_access"
+        android:layout_marginTop="15dp"
+        android:text="Google Maps" />
 </RelativeLayout>
