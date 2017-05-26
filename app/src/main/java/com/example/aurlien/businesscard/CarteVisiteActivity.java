@@ -8,10 +8,14 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static com.example.aurlien.businesscard.MainActivity.PICK_CONTACT_REQUEST;
 
@@ -71,13 +75,26 @@ public class CarteVisiteActivity extends AppCompatActivity {
 
                 // Get the default instance of SmsManager
                 SmsManager smsManager = SmsManager.getDefault();
-                String smsBody = "{nom:" + card.getNom() +",numero:" + card.getTelephone() + ",email:" + card.getEmail() + ",address:" + card.getAddress() + "}";
-                // Send a text based SMS
-                smsManager.sendTextMessage(phoneNumber, null, smsBody, null, null);
+                String smsBody;
+                //Creation de l'objet JSON
+                JSONObject object;
+                try{
+                    object = new JSONObject();
+                    object.put("nom", "toto");
+                    /*object.put("numero", card.getTelephone());
+                    object.put("email", card.getEmail());
+                    object.put("adress", card.getAddress());*/
+                    smsBody = "card:(test)";
+                    Log.d("SMS ENVOYE", smsBody);
+                    smsManager.sendTextMessage(phoneNumber, null, smsBody, null, null);
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 Context context = getApplicationContext();
                 int duration = Toast.LENGTH_LONG;
-                Toast toast = Toast.makeText(context, "Carte envoyé par SMS", duration);
-                toast.show();
+                /*Toast toast = Toast.makeText(context, "Carte envoyé par SMS", duration);
+                toast.show();*/
 
             }
         }
