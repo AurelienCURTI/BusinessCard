@@ -41,13 +41,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        google_maps_list.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
 

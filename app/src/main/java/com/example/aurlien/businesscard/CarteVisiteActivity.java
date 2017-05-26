@@ -30,6 +30,7 @@ public class CarteVisiteActivity extends AppCompatActivity {
 
         setContentView(R.layout.card);
         Button send_sms_card = (Button) findViewById(R.id.btn_send_sms);
+        Button localiser = (Button) findViewById(R.id.google_maps_access);
         TextView nom_val = (TextView) findViewById(R.id.name);
         TextView numero_val = (TextView) findViewById(R.id.phone);
         TextView email_val = (TextView) findViewById(R.id.email);
@@ -47,6 +48,13 @@ public class CarteVisiteActivity extends AppCompatActivity {
                 Intent pickContactIntent = new Intent(Intent.ACTION_PICK, Uri.parse("content://contacts"));
                 pickContactIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
                 startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
+            }
+        });
+        localiser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CarteVisiteActivity.this, MapsActivity.class);
+                startActivity(intent);
             }
         });
     }
