@@ -17,6 +17,8 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 import static com.example.aurlien.businesscard.MainActivity.PICK_CONTACT_REQUEST;
 
 /**
@@ -25,23 +27,38 @@ import static com.example.aurlien.businesscard.MainActivity.PICK_CONTACT_REQUEST
 
 public class CarteVisiteActivity extends AppCompatActivity {
     BusinessCard card;
+    private BusinessCardDAO bcardDao;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.card);
         Button send_sms_card = (Button) findViewById(R.id.btn_send_sms);
         Button localiser = (Button) findViewById(R.id.google_maps_access);
+        Button deletecard = (Button) findViewById(R.id.deletecard);
         TextView nom_val = (TextView) findViewById(R.id.name);
         TextView numero_val = (TextView) findViewById(R.id.phone);
         TextView email_val = (TextView) findViewById(R.id.email);
         TextView address_val = (TextView) findViewById(R.id.address);
+        bcardDao = new BusinessCardDAO(this);
         final Intent intent = getIntent();
-
         nom_val.setText(intent.getStringExtra("K_NOM"));
         numero_val.setText(intent.getStringExtra("K_NUMERO"));
         email_val.setText(intent.getStringExtra("K_EMAIL"));
         address_val.setText(intent.getStringExtra("K_ADDRESS"));
         card = new BusinessCard(intent.getStringExtra("K_NOM"), intent.getStringExtra("K_NUMERO"), intent.getStringExtra("K_EMAIL"), intent.getStringExtra("K_ADDRESS"));
+        deletecard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bcardDao.open();
+                bcardDao.supprimer(intent.getLongExtra("K_ID", 0));
+                int duration = Toast.LENGTH_LONG;
+                Context context = getApplicationContext();
+                Toast toast = Toast.makeText(context, "Carte supprimé", duration);
+                toast.show();
+                Intent intent = new Intent(CarteVisiteActivity.this, ListCardsActivity.class);
+                startActivity(intent);
+            }
+        });
         send_sms_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,11 +108,10 @@ public class CarteVisiteActivity extends AppCompatActivity {
                     object.put("nom", card.getNom());
                     object.put("numero", card.getTelephone());
                     object.put("email", card.getEmail());
-                    object.put("adress", card.getAddress());
+                    object.put("adresse", card.getAddress());
                     smsBody = object.toString();
                     smsBody = smsBody.replace("{", "(");
                     smsBody = smsBody.replace("}", ")");
-                    Log.d("SMS ENVOYE", smsBody);
                     smsManager.sendTextMessage(phoneNumber, null, smsBody, null, null);
                 }
                 catch (JSONException e) {
@@ -103,9 +119,8 @@ public class CarteVisiteActivity extends AppCompatActivity {
                 }
                 Context context = getApplicationContext();
                 int duration = Toast.LENGTH_LONG;
-                /*Toast toast = Toast.makeText(context, "Carte envoyé par SMS", duration);
-                toast.show();*/
-
+                Toast toast = Toast.makeText(context, "Carte envoyé par SMS", duration);
+                toast.show();
             }
         }
     }

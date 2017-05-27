@@ -10,9 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
-        android:text="ENVOYER PAR SMS" />
+        android:text="ENVOYER PAR SMS"
+        android:layout_alignStart="@+id/google_maps_access"
+        android:layout_alignEnd="@+id/google_maps_access" />
 
     <TextureView
         android:id="@+id/textureView"
@@ -68,7 +69,7 @@
         android:inputType="date"
         android:text="Date"
         android:layout_alignBottom="@+id/textureView"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignEnd="@+id/address" />
 
     <EditText
         android:id="@+id/name"
@@ -85,9 +86,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_send_sms"
-        android:layout_alignEnd="@+id/btn_send_sms"
-        android:layout_alignStart="@+id/btn_send_sms"
         android:layout_marginBottom="17dp"
-        android:text="Localiser" />
+        android:text="Localiser"
+        android:layout_alignStart="@+id/deletecard"
+        android:layout_alignEnd="@+id/deletecard" />
+
+    <Button
+        android:id="@+id/deletecard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:text="Supprimer la carte"
+        android:layout_above="@+id/google_maps_access"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

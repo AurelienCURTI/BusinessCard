@@ -20,21 +20,39 @@ public class BusinessCard {
         super();
         this.nom = nom;
         this.telephone = telephone;
+        this.email = "NC";
+        this.address = "NC";
     }
 
     public BusinessCard(String nom, String telephone, String email){
         super();
         this.nom = nom;
         this.telephone = telephone;
-        this.email = email;
+        if(email == null || email.equals("")){
+            this.email = "NC";
+        }
+        else {
+            this.email = email;
+        }
+        this.address = "NC";
     }
 
     public BusinessCard(String nom, String telephone, String email, String address){
         super();
         this.nom = nom;
         this.telephone = telephone;
-        this.email = email;
-        this.address = address;
+        if(email == null || email.equals("")){
+            this.email = "NC";
+        }
+        else {
+            this.email = email;
+        }
+        if(address == null || address.equals("")){
+            this.address = "NC";
+        }
+        else {
+            this.address = email;
+        }
     }
 
     public long getId(){ return this.id;}

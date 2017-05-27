@@ -23,7 +23,7 @@
         android:id="@+id/contacts_access"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Charger les contacts"
+        android:text="Generer une carte à partir des contacts"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 

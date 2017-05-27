@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class ListCardsActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_cards);
+        Button refresh = (Button) findViewById(R.id.refreshlist);
         bcardDao = new BusinessCardDAO(this);
         bcardDao.open();
         listAdapter = new ArrayAdapter<String>(ListCardsActivity.this, android.R.layout.simple_list_item_1);
@@ -30,18 +32,27 @@ public class ListCardsActivity extends ListActivity {
         }
         getListView().setAdapter(listAdapter);
         ListView lv = getListView();
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListCardsActivity.this, ListCardsActivity.class);
+                startActivity(intent);
+            }
+        });
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position,
                                     long arg3)
             {
+                long id = lbcards.get(position).getId();
                 String nom = lbcards.get(position).getNom();
                 String telephone = lbcards.get(position).getTelephone();
                 String email = lbcards.get(position).getEmail();
                 String address = lbcards.get(position).getAddress();
                 Intent intent = new Intent(ListCardsActivity.this, CarteVisiteActivity.class);
                 //On passe ces données à l'autre activité
+                intent.putExtra("K_ID", id);
                 intent.putExtra("K_NOM", nom);
                 intent.putExtra("K_NUMERO", telephone);
                 intent.putExtra("K_EMAIL", email);
