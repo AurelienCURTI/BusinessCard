@@ -23,6 +23,7 @@ public class ListCardsActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_cards);
         Button refresh = (Button) findViewById(R.id.refreshlist);
+        Button back = (Button) findViewById(R.id.back);
         bcardDao = new BusinessCardDAO(this);
         bcardDao.open();
         listAdapter = new ArrayAdapter<String>(ListCardsActivity.this, android.R.layout.simple_list_item_1);
@@ -37,6 +38,15 @@ public class ListCardsActivity extends ListActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ListCardsActivity.this, ListCardsActivity.class);
                 startActivity(intent);
+                finish();
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListCardsActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -58,6 +68,7 @@ public class ListCardsActivity extends ListActivity {
                 intent.putExtra("K_EMAIL", email);
                 intent.putExtra("K_ADDRESS", address);
                 startActivity(intent);
+                finish();
             }
         });
     }

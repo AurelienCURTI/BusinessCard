@@ -17,15 +17,17 @@
         android:textColor="#000000"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView9" />
 
     <Button
         android:id="@+id/contacts_access"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Generer une carte à partir des contacts"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/textView9"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="163dp" />
 
     <Button
         android:id="@+id/cards_access"

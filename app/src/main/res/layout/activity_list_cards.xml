@@ -33,6 +33,16 @@
         android:text="Actualiser la liste"
         android:layout_marginTop="11dp"
         android:layout_below="@android:id/list"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignStart="@android:id/list" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Retour"
+        android:layout_alignBaseline="@+id/refreshlist"
+        android:layout_alignBottom="@+id/refreshlist"
+        android:layout_alignEnd="@android:id/list"
+        android:layout_toEndOf="@+id/textView3" />
 </RelativeLayout>
 

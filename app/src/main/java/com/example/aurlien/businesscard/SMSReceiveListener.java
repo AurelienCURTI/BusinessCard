@@ -47,7 +47,9 @@ public class SMSReceiveListener  extends BroadcastReceiver {
 
                 try {
                     JSONObject sms = new JSONObject(str);
-                    BusinessCard bcard = new BusinessCard(sms.getString("nom"), sms.getString("numero"), sms.getString("email"), sms.getString("adresse"));
+                    String numero = sms.getString("numero").replace("{", "(");
+                    numero = numero.replace("}", ")");
+                    BusinessCard bcard = new BusinessCard(sms.getString("nom"), numero , sms.getString("email"), sms.getString("adresse"));
                     bcardDao.ajouter(bcard);
                     int duration = Toast.LENGTH_LONG;
                     Toast toast = Toast.makeText(context, "Vous avez reçu une carte par SMS", duration);

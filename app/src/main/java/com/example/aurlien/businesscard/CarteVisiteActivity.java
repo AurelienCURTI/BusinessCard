@@ -35,10 +35,12 @@ public class CarteVisiteActivity extends AppCompatActivity {
         Button send_sms_card = (Button) findViewById(R.id.btn_send_sms);
         Button localiser = (Button) findViewById(R.id.google_maps_access);
         Button deletecard = (Button) findViewById(R.id.deletecard);
-        TextView nom_val = (TextView) findViewById(R.id.name);
-        TextView numero_val = (TextView) findViewById(R.id.phone);
-        TextView email_val = (TextView) findViewById(R.id.email);
-        TextView address_val = (TextView) findViewById(R.id.address);
+        Button back = (Button) findViewById(R.id.back);
+        Button save = (Button) findViewById(R.id.save);
+        final TextView nom_val = (TextView) findViewById(R.id.name);
+        final TextView numero_val = (TextView) findViewById(R.id.phone);
+        final TextView email_val = (TextView) findViewById(R.id.email);
+        final TextView address_val = (TextView) findViewById(R.id.address);
         bcardDao = new BusinessCardDAO(this);
         final Intent intent = getIntent();
         nom_val.setText(intent.getStringExtra("K_NOM"));
@@ -46,6 +48,33 @@ public class CarteVisiteActivity extends AppCompatActivity {
         email_val.setText(intent.getStringExtra("K_EMAIL"));
         address_val.setText(intent.getStringExtra("K_ADDRESS"));
         card = new BusinessCard(intent.getStringExtra("K_NOM"), intent.getStringExtra("K_NUMERO"), intent.getStringExtra("K_EMAIL"), intent.getStringExtra("K_ADDRESS"));
+        card.setId((int)intent.getLongExtra("K_ID", 0));
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CarteVisiteActivity.this, ListCardsActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                card.setNom(nom_val.getText().toString());
+                card.setTelephone(numero_val.getText().toString());
+                card.setEmail(email_val.getText().toString());
+                card.setAddress(address_val.getText().toString());
+                bcardDao.open();
+                bcardDao.modifier(card);
+                int duration = Toast.LENGTH_LONG;
+                Context context = getApplicationContext();
+                Toast toast = Toast.makeText(context, "Modifications sauvegardés", duration);
+                toast.show();
+                Intent intent = new Intent(CarteVisiteActivity.this, ListCardsActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         deletecard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +86,7 @@ public class CarteVisiteActivity extends AppCompatActivity {
                 toast.show();
                 Intent intent = new Intent(CarteVisiteActivity.this, ListCardsActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         send_sms_card.setOnClickListener(new View.OnClickListener() {

@@ -2,50 +2,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:padding="30dip"
-    android:layout_height="match_parent">
-
-    <Button
-        android:id="@+id/btn_send_sms"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp"
-        android:text="ENVOYER PAR SMS"
-        android:layout_alignStart="@+id/google_maps_access"
-        android:layout_alignEnd="@+id/google_maps_access" />
+    android:layout_height="wrap_content"
+    android:background="@drawable/bgcard">
 
     <TextureView
         android:id="@+id/textureView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_send_sms"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/bgcard"
-        android:layout_marginBottom="184dp"/>
+        android:visibility="invisible"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="175dp"/>
 
     <EditText
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textureView"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="77dp"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:text="Email" />
+        android:text="Email"
+        android:layout_below="@+id/phone"
+        android:layout_alignStart="@+id/phone" />
 
     <EditText
         android:id="@+id/phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/email"
-        android:layout_alignParentStart="true"
         android:contentDescription="Phone"
         android:ems="10"
         android:inputType="phone"
         android:text="Phone"
-        android:visibility="visible" />
+        android:layout_below="@+id/name"
+        android:layout_alignStart="@+id/name" />
 
     <EditText
         android:id="@+id/address"
@@ -55,10 +42,8 @@
         android:ems="10"
         android:inputType="phone"
         android:text="Address"
-        android:visibility="visible"
-        android:layout_marginBottom="34dp"
-        android:layout_alignBottom="@+id/textureView"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/textView6"
+        android:layout_toEndOf="@+id/textView6" />
 
 
     <EditText
@@ -68,26 +53,29 @@
         android:ems="10"
         android:inputType="date"
         android:text="Date"
-        android:layout_alignBottom="@+id/textureView"
-        android:layout_alignEnd="@+id/address" />
+        android:layout_marginBottom="25dp"
+        android:layout_above="@+id/deletecard"
+        android:layout_toEndOf="@+id/textView7" />
 
     <EditText
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/phone"
-        android:layout_alignEnd="@+id/phone"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:text="Name"
+        android:layout_marginTop="24dp"
+        android:layout_alignTop="@+id/textureView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="26dp" />
 
     <Button
         android:id="@+id/google_maps_access"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_send_sms"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="30dp"
         android:text="Localiser"
+        android:layout_above="@+id/btn_send_sms"
         android:layout_alignStart="@+id/deletecard"
         android:layout_alignEnd="@+id/deletecard" />
 
@@ -95,9 +83,102 @@
         android:id="@+id/deletecard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
         android:text="Supprimer la carte"
         android:layout_above="@+id/google_maps_access"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp" />
+
+    <Button
+        android:id="@+id/btn_send_sms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-18dp"
+        android:text="ENVOYER PAR SMS"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/google_maps_access"
+        android:layout_alignEnd="@+id/google_maps_access" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Retour"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/deletecard"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/back"
+        android:layout_alignTop="@+id/name"
+        android:text="Nom : "
+        android:gravity="center_vertical"
+        android:textAlignment="textEnd"
+        android:textSize="20dp"
+        android:layout_above="@+id/phone"
+        android:layout_toStartOf="@+id/phone" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_below="@+id/textView4"
+        android:text="Telephone : "
+        android:gravity="center_vertical"
+        android:textAlignment="textEnd"
+        android:textSize="20dp"
+        android:layout_toStartOf="@+id/phone"
+        android:layout_above="@+id/email" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_below="@+id/textView5"
+        android:text="Email : "
+        android:gravity="center_vertical"
+        android:textAlignment="textEnd"
+        android:textSize="20dp"
+        android:layout_toStartOf="@+id/email"
+        android:layout_alignBottom="@+id/email" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_alignTop="@+id/address"
+        android:text="Adresse : "
+        android:gravity="center_vertical"
+        android:textAlignment="textEnd"
+        android:textSize="20dp"
+        android:layout_toStartOf="@+id/address"
+        android:layout_above="@+id/date" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView7"
+        android:layout_below="@+id/textView7"
+        android:text="Date : "
+        android:gravity="center_vertical"
+        android:textAlignment="textEnd"
+        android:textSize="20dp"
+        android:layout_toStartOf="@+id/address"
+        android:layout_alignBottom="@+id/date" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sauvegarder"
+        android:layout_alignBaseline="@+id/back"
+        android:layout_alignBottom="@+id/back"
+        android:layout_alignEnd="@+id/name" />
 
 </RelativeLayout>
