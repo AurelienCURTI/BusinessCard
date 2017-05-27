@@ -27,27 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListCardsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".SelectUsersDataActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".CarteVisiteActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ListCardsActivity"></activity>
+        <activity android:name=".SelectUsersDataActivity"></activity>
+        <activity android:name=".CarteVisiteActivity"></activity>
         <receiver class="com.example.aurlien.businesscard.SMSReceiveListener"
             android:name="com.example.aurlien.businesscard.SMSReceiveListener">
             <intent-filter android:priority="100">
@@ -61,11 +43,6 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_list_business_card">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
