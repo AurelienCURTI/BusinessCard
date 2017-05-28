@@ -1,6 +1,8 @@
 package com.example.aurlien.businesscard;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -78,15 +80,33 @@ public class CarteVisiteActivity extends AppCompatActivity {
         deletecard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bcardDao.open();
-                bcardDao.supprimer(intent.getLongExtra("K_ID", 0));
-                int duration = Toast.LENGTH_LONG;
-                Context context = getApplicationContext();
-                Toast toast = Toast.makeText(context, "Carte supprimé", duration);
-                toast.show();
-                Intent intent = new Intent(CarteVisiteActivity.this, ListCardsActivity.class);
-                startActivity(intent);
-                finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(CarteVisiteActivity.this);
+                builder.setCancelable(true);
+                builder.setTitle("Confirmation");
+                builder.setMessage("Cette carte sera supprimé, souhaitez-vous continuer ?");
+                builder.setPositiveButton("OUI",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                bcardDao.open();
+                                bcardDao.supprimer(intent.getLongExtra("K_ID", 0));
+                                int duration = Toast.LENGTH_LONG;
+                                Context context = getApplicationContext();
+                                Toast toast = Toast.makeText(context, "Carte supprimé", duration);
+                                toast.show();
+                                Intent intent = new Intent(CarteVisiteActivity.this, ListCardsActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+                builder.setNegativeButton("ANNULER", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
         send_sms_card.setOnClickListener(new View.OnClickListener() {
