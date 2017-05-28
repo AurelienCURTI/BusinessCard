@@ -47,7 +47,11 @@ public class CarteVisiteActivity extends AppCompatActivity {
         numero_val.setText(intent.getStringExtra("K_NUMERO"));
         email_val.setText(intent.getStringExtra("K_EMAIL"));
         address_val.setText(intent.getStringExtra("K_ADDRESS"));
-        card = new BusinessCard(intent.getStringExtra("K_NOM"), intent.getStringExtra("K_NUMERO"), intent.getStringExtra("K_EMAIL"), intent.getStringExtra("K_ADDRESS"));
+        final String longitude = intent.getStringExtra("K_LONGITUDE");
+        Log.d("TAG", "Longitude card : " + longitude);
+        final String latitude = intent.getStringExtra("K_LATITUDE");
+        Log.d("TAG", "longitude : " + longitude);
+        card = new BusinessCard(intent.getStringExtra("K_NOM"), intent.getStringExtra("K_NUMERO"), intent.getStringExtra("K_EMAIL"), intent.getStringExtra("K_ADDRESS"), longitude, latitude);
         card.setId((int)intent.getLongExtra("K_ID", 0));
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +68,8 @@ public class CarteVisiteActivity extends AppCompatActivity {
                 card.setTelephone(numero_val.getText().toString());
                 card.setEmail(email_val.getText().toString());
                 card.setAddress(address_val.getText().toString());
+                card.setLongitude(longitude);
+                card.setLatitude(latitude);
                 bcardDao.open();
                 bcardDao.modifier(card);
                 int duration = Toast.LENGTH_LONG;
@@ -119,6 +125,8 @@ public class CarteVisiteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CarteVisiteActivity.this, MapsActivity.class);
+                intent.putExtra("K_LONGITUDE", longitude);
+                intent.putExtra("K_LATITUDE", latitude);
                 startActivity(intent);
             }
         });
@@ -157,9 +165,13 @@ public class CarteVisiteActivity extends AppCompatActivity {
                     object.put("numero", card.getTelephone());
                     object.put("email", card.getEmail());
                     object.put("adresse", card.getAddress());
+                    object.put("longitude", card.getLongitude());
+                    object.put("latitude", card.getLatitude());
                     smsBody = object.toString();
                     smsBody = smsBody.replace("{", "(");
                     smsBody = smsBody.replace("}", ")");
+
+                    Log.d("TEST", smsBody);
                     smsManager.sendTextMessage(phoneNumber, null, smsBody, null, null);
                 }
                 catch (JSONException e) {

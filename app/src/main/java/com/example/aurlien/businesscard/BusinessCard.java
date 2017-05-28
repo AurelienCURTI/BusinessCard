@@ -10,6 +10,8 @@ public class BusinessCard {
     private String telephone;
     private String email;
     private String address;
+    private String longitude;
+    private String latitude;
 
     public BusinessCard(String nom, String telephone){
         super();
@@ -19,7 +21,7 @@ public class BusinessCard {
         this.address = "NC";
     }
 
-    public BusinessCard(String nom, String telephone, String email, String address){
+    public BusinessCard(String nom, String telephone, String email, String address, String longitude, String latitude){
         super();
         this.nom = nom;
         this.telephone = telephone;
@@ -35,6 +37,8 @@ public class BusinessCard {
         else {
             this.address = address;
         }
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     public long getId(){ return this.id;}
@@ -55,6 +59,10 @@ public class BusinessCard {
         return this.address;
     }
 
+    public String getLongitude(){return this.longitude;}
+
+    public String getLatitude(){return this.latitude;}
+
     public void setId(int id){
         this.id = id;
     }
@@ -74,6 +82,10 @@ public class BusinessCard {
     public void setAddress(String address){
         this.address = address;
     }
+
+    public void setLongitude(String longitude){this.longitude = longitude;}
+
+    public void setLatitude(String latitude){this.latitude = latitude;}
 
     public String toString(){return "ID : " + this.id + " NOM : " + this.nom + " TELEPHONE : " + this.telephone + " EMAIL : " + this.email + " ADDRESS : " + this.address;}
 

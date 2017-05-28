@@ -1,10 +1,15 @@
 package com.example.aurlien.businesscard;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -92,6 +97,33 @@ public class MainActivity extends AppCompatActivity {
                     column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
                     String numero = cursor.getString(column);
 
+                    LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                    if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
+                    Criteria criteria = new Criteria();
+                    String bestProvider = locationManager.getBestProvider(criteria, false);
+                    Location location = locationManager.getLastKnownLocation(bestProvider);
+                    String longitude = null;
+                    String latitude = null;
+                    if(location != null) {
+                        longitude = String.valueOf(location.getLongitude());
+                        latitude = String.valueOf(location.getLatitude());
+                    }
+                    if (longitude == null){
+                        longitude = "122.0840";
+                    }
+                    if (latitude == null){
+                        latitude = "37.4220";
+                    }
+
 
                     while (emailCur.moveToNext()) {
                         //long id = emailCur.getLong(emailCur.getColumnIndex(ContactsContract.Data.CONTACT_ID));
@@ -116,6 +148,8 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("K_NUMERO", numero);
                     intent.putExtra("K_EMAIL", email);
                     intent.putExtra("K_ADDRESS", address);
+                    intent.putExtra("K_LONGITUDE", longitude);
+                    intent.putExtra("K_LATITUDE", latitude);
 
                     startActivity(intent);
                 }

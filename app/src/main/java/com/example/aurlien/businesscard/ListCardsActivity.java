@@ -62,6 +62,8 @@ public class ListCardsActivity extends ListActivity {
                 String telephone = lbcards.get(position).getTelephone();
                 String email = lbcards.get(position).getEmail();
                 String address = lbcards.get(position).getAddress();
+                String longitude = lbcards.get(0).getLongitude();
+                String latitude = lbcards.get(position).getLatitude();
                 Intent intent = new Intent(ListCardsActivity.this, CarteVisiteActivity.class);
                 //On passe ces données à l'autre activité
                 intent.putExtra("K_ID", id);
@@ -69,6 +71,8 @@ public class ListCardsActivity extends ListActivity {
                 intent.putExtra("K_NUMERO", telephone);
                 intent.putExtra("K_EMAIL", email);
                 intent.putExtra("K_ADDRESS", address);
+                intent.putExtra("K_LONGITUDE", longitude);
+                intent.putExtra("K_LATITUDE", latitude);
                 startActivity(intent);
                 finish();
             }
