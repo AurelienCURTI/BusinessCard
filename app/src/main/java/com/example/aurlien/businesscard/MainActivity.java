@@ -1,10 +1,15 @@
 package com.example.aurlien.businesscard;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -23,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        contact_list = (Button)findViewById(R.id.contacts_access);
-        cards_list = (Button)findViewById(R.id.cards_access);
+        contact_list = (Button) findViewById(R.id.contacts_access);
+        cards_list = (Button) findViewById(R.id.cards_access);
         google_maps_list = (Button) findViewById(R.id.google_maps_access);
         contact_list.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,49 +86,69 @@ public class MainActivity extends AppCompatActivity {
                 // Interrogation de la base de données de contact du téléphone
                 Cursor cursor = getContentResolver()
                         .query(contactUri, projection, null, null, null);
-                try {
-                    cursor.moveToFirst();
+                cursor.moveToFirst();
 
-                    // Retrouver le nom
-                    int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
-                    String nom = cursor.getString(column);
+                // Retrouver le nom
+                int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+                String nom = cursor.getString(column);
 
-                    // Retrouver le tableau
-                    column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-                    String numero = cursor.getString(column);
-
-
-                    while (emailCur.moveToNext()) {
-                        //long id = emailCur.getLong(emailCur.getColumnIndex(ContactsContract.Data.CONTACT_ID));
-                        String name = emailCur.getString(emailCur.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
-                        String dataEmail = emailCur.getString(emailCur.getColumnIndex(ContactsContract.Data.DATA1));
-                        if (name.equals(nom)) {
-                            email = dataEmail;
-                        }
-                    }
-                    while (addresseCur.moveToNext()) {
-                        //long id = emailCur.getLong(emailCur.getColumnIndex(ContactsContract.Data.CONTACT_ID));
-                        String name = addresseCur.getString(addresseCur.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
-                        String dataAddress = addresseCur.getString(addresseCur.getColumnIndex(ContactsContract.Data.DATA1));
-                        if (name.equals(nom)) {
-                            address = dataAddress;
-                        }
-                    }
-
-                    Intent intent = new Intent(MainActivity.this, SelectUsersDataActivity.class);
-                    //On passe ces données à l'autre activité
-                    intent.putExtra("K_NOM", nom);
-                    intent.putExtra("K_NUMERO", numero);
-                    intent.putExtra("K_EMAIL", email);
-                    intent.putExtra("K_ADDRESS", address);
-
-                    startActivity(intent);
+                // Retrouver le tableau
+                column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                String numero = cursor.getString(column);
+                LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
                 }
-                finally {
-                    cursor.close();
-                    emailCur.close();
-                    addresseCur.close();
+                Criteria criteria = new Criteria();
+                String bestProvider = locationManager.getBestProvider(criteria, false);
+                Location location = locationManager.getLastKnownLocation(bestProvider);
+                String longitude = null;
+                String latitude = null;
+                if(location != null) {
+                    longitude = String.valueOf(location.getLongitude());
+                    latitude = String.valueOf(location.getLatitude());
                 }
+                if (longitude == null){
+                    longitude = "-122.0840";
+                }
+                if (latitude == null){
+                    latitude = "37.4220";
+                }
+
+                while(emailCur.moveToNext()) {
+                    //long id = emailCur.getLong(emailCur.getColumnIndex(ContactsContract.Data.CONTACT_ID));
+                    String name = emailCur.getString(emailCur.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
+                    String dataEmail = emailCur.getString(emailCur.getColumnIndex(ContactsContract.Data.DATA1));
+                    if(name.equals(nom)){
+                        email = dataEmail;
+                    }
+                }
+                while(addresseCur.moveToNext()) {
+                    //long id = emailCur.getLong(emailCur.getColumnIndex(ContactsContract.Data.CONTACT_ID));
+                    String name = addresseCur.getString(addresseCur.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
+                    String dataAddress = addresseCur.getString(addresseCur.getColumnIndex(ContactsContract.Data.DATA1));
+                    if(name.equals(nom)){
+                        address = dataAddress;
+                    }
+                }
+
+
+                Intent intent = new Intent(MainActivity.this, SelectUsersDataActivity.class);
+                //On passe ces données à l'autre activité
+                intent.putExtra("K_NOM", nom);
+                intent.putExtra("K_NUMERO", numero);
+                intent.putExtra("K_EMAIL", email);
+                intent.putExtra("K_ADDRESS", address);
+                intent.putExtra("K_LONGITUDE", longitude);
+                intent.putExtra("K_LATITUDE", latitude);
+                startActivity(intent);
             }
         }
     }

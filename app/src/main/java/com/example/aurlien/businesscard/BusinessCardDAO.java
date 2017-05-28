@@ -19,6 +19,8 @@ public class BusinessCardDAO extends DAOBase{
     public static final String TEL = "telephone";
     public static final String EMAIL = "email";
     public static final String ADDRESS = "address";
+    public static final String LONGITUDE = "longitude";
+    public static final String LATITUDE = "latitude";
 
     public BusinessCardDAO(Context pContext) {
         super(pContext);
@@ -31,6 +33,8 @@ public class BusinessCardDAO extends DAOBase{
             value.put(BusinessCardDAO.TEL, card.getTelephone());
             value.put(BusinessCardDAO.EMAIL, card.getEmail());
             value.put(BusinessCardDAO.ADDRESS, card.getAddress());
+            value.put(BusinessCardDAO.LONGITUDE, card.getLongitude());
+            value.put(BusinessCardDAO.LATITUDE, card.getLatitude());
             long insertID = mDb.insert(BusinessCardDAO.TABLE_NAME, null, value);
             if(insertID == -1) {
                 Log.e("BusinessCardDAO", "Erreur lors de l'insertion de " + card.toString() + " dans la base");
@@ -51,6 +55,8 @@ public class BusinessCardDAO extends DAOBase{
         value.put(TEL, card.getTelephone());
         value.put(EMAIL, card.getEmail());
         value.put(ADDRESS, card.getAddress());
+        value.put(LONGITUDE, card.getLongitude());
+        value.put(LATITUDE, card.getLatitude());
         Log.d("TEST", String.valueOf(card.getId()));
         mDb.update(TABLE_NAME, value, ID  + " = ?", new String[] {String.valueOf(card.getId())});
     }
@@ -65,7 +71,9 @@ public class BusinessCardDAO extends DAOBase{
                 String tel_res = c.getString(1);
                 String email_res = c.getString(2);
                 String address_res = c.getString(3);
-                return new BusinessCard(nom_res, tel_res, email_res, address_res);
+                String longitude_res = c.getString(4);
+                String latitude_res = c.getString(5);
+                return new BusinessCard(nom_res, tel_res, email_res, address_res, longitude_res, latitude_res);
             }
             return new BusinessCard(null, null, null, null);
         }
@@ -95,7 +103,7 @@ public class BusinessCardDAO extends DAOBase{
         try {
             c.moveToFirst();
             while (!c.isAfterLast()) {
-                BusinessCard card = new BusinessCard(c.getString(1), c.getString(2), c.getString(3), c.getString(4));
+                BusinessCard card = new BusinessCard(c.getString(1), c.getString(2), c.getString(3), c.getString(4), c.getString(5), c.getString(6));
                 card.setId(c.getInt(0));
                 cards.add(card);
                 c.moveToNext();

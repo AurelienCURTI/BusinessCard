@@ -15,6 +15,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     public static final String BC_TEL = "telephone";
     public static final String BC_EMAIL = "email";
     public static final String BC_ADDRESS = "address";
+    public static final String BC_LONGITUDE = "longitude";
+    public static final String BC_LATITUDE = "latitude";
 
     public static final String BC_TABLE_NAME = "Businesscard";
     public static final String BC_TABLE_CREATE =
@@ -23,7 +25,10 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                     BC_NOM + " TEXT, " +
                     BC_TEL + " TEXT, " +
                     BC_EMAIL + " TEXT, " +
-                    BC_ADDRESS + " TEXT);";
+                    BC_ADDRESS + " TEXT, " +
+                    BC_LONGITUDE + " TEXT, " +
+                    BC_LATITUDE + " TEXT);";
+
 
     public static final String METIER_TABLE_DROP = "DROP TABLE IF EXISTS " + BC_TABLE_NAME + ";";
 

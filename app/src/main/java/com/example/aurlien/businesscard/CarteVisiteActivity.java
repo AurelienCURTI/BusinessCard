@@ -1,8 +1,6 @@
 package com.example.aurlien.businesscard;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -15,9 +13,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-
 
 import static com.example.aurlien.businesscard.MainActivity.PICK_CONTACT_REQUEST;
 
@@ -47,7 +45,11 @@ public class CarteVisiteActivity extends AppCompatActivity {
         numero_val.setText(intent.getStringExtra("K_NUMERO"));
         email_val.setText(intent.getStringExtra("K_EMAIL"));
         address_val.setText(intent.getStringExtra("K_ADDRESS"));
-        card = new BusinessCard(intent.getStringExtra("K_NOM"), intent.getStringExtra("K_NUMERO"), intent.getStringExtra("K_EMAIL"), intent.getStringExtra("K_ADDRESS"));
+        final String longitude = intent.getStringExtra("K_LONGITUDE");
+        Log.d("TAG", "Longitude card : " + longitude);
+        final String latitude = intent.getStringExtra("K_LATITUDE");
+        Log.d("TAG", "longitude : " + longitude);
+        card = new BusinessCard(intent.getStringExtra("K_NOM"), intent.getStringExtra("K_NUMERO"), intent.getStringExtra("K_EMAIL"), intent.getStringExtra("K_ADDRESS"), longitude, latitude);
         card.setId((int)intent.getLongExtra("K_ID", 0));
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,11 +66,13 @@ public class CarteVisiteActivity extends AppCompatActivity {
                 card.setTelephone(numero_val.getText().toString());
                 card.setEmail(email_val.getText().toString());
                 card.setAddress(address_val.getText().toString());
+                card.setLongitude(longitude);
+                card.setLatitude(latitude);
                 bcardDao.open();
                 bcardDao.modifier(card);
                 int duration = Toast.LENGTH_LONG;
                 Context context = getApplicationContext();
-                Toast toast = Toast.makeText(context, "Modifications sauvegardés.", duration);
+                Toast toast = Toast.makeText(context, "Modifications sauvegardés", duration);
                 toast.show();
                 Intent intent = new Intent(CarteVisiteActivity.this, ListCardsActivity.class);
                 startActivity(intent);
@@ -78,33 +82,15 @@ public class CarteVisiteActivity extends AppCompatActivity {
         deletecard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(CarteVisiteActivity.this);
-                builder.setCancelable(true);
-                builder.setTitle("Confirmation");
-                builder.setMessage("Cette carte sera supprimé, souhaitez-vous continuer ?");
-                builder.setPositiveButton("OUI",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                bcardDao.open();
-                                bcardDao.supprimer(intent.getLongExtra("K_ID", 0));
-                                int duration = Toast.LENGTH_LONG;
-                                Context context = getApplicationContext();
-                                Toast toast = Toast.makeText(context, "Carte supprimé.", duration);
-                                toast.show();
-                                Intent intent = new Intent(CarteVisiteActivity.this, ListCardsActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
-                builder.setNegativeButton("ANNULER", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                bcardDao.open();
+                bcardDao.supprimer(intent.getLongExtra("K_ID", 0));
+                int duration = Toast.LENGTH_LONG;
+                Context context = getApplicationContext();
+                Toast toast = Toast.makeText(context, "Carte supprimé", duration);
+                toast.show();
+                Intent intent = new Intent(CarteVisiteActivity.this, ListCardsActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         send_sms_card.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +105,8 @@ public class CarteVisiteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CarteVisiteActivity.this, MapsActivity.class);
+                intent.putExtra("K_LONGITUDE", longitude);
+                intent.putExtra("K_LATITUDE", latitude);
                 startActivity(intent);
             }
         });
@@ -157,6 +145,8 @@ public class CarteVisiteActivity extends AppCompatActivity {
                     object.put("numero", card.getTelephone());
                     object.put("email", card.getEmail());
                     object.put("adresse", card.getAddress());
+                    object.put("longitude", card.getLongitude());
+                    object.put("latitude", card.getLatitude());
                     smsBody = object.toString();
                     smsBody = smsBody.replace("{", "(");
                     smsBody = smsBody.replace("}", ")");
@@ -167,7 +157,7 @@ public class CarteVisiteActivity extends AppCompatActivity {
                 }
                 Context context = getApplicationContext();
                 int duration = Toast.LENGTH_LONG;
-                Toast toast = Toast.makeText(context, "Carte envoyé par SMS.", duration);
+                Toast toast = Toast.makeText(context, "Carte envoyé par SMS", duration);
                 toast.show();
             }
         }
