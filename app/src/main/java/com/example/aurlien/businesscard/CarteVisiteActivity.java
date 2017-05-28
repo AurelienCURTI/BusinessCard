@@ -68,7 +68,7 @@ public class CarteVisiteActivity extends AppCompatActivity {
                 bcardDao.modifier(card);
                 int duration = Toast.LENGTH_LONG;
                 Context context = getApplicationContext();
-                Toast toast = Toast.makeText(context, "Modifications sauvegardés", duration);
+                Toast toast = Toast.makeText(context, "Modifications sauvegardés.", duration);
                 toast.show();
                 Intent intent = new Intent(CarteVisiteActivity.this, ListCardsActivity.class);
                 startActivity(intent);
@@ -90,7 +90,7 @@ public class CarteVisiteActivity extends AppCompatActivity {
                                 bcardDao.supprimer(intent.getLongExtra("K_ID", 0));
                                 int duration = Toast.LENGTH_LONG;
                                 Context context = getApplicationContext();
-                                Toast toast = Toast.makeText(context, "Carte supprimé", duration);
+                                Toast toast = Toast.makeText(context, "Carte supprimé.", duration);
                                 toast.show();
                                 Intent intent = new Intent(CarteVisiteActivity.this, ListCardsActivity.class);
                                 startActivity(intent);
@@ -167,7 +167,7 @@ public class CarteVisiteActivity extends AppCompatActivity {
                 }
                 Context context = getApplicationContext();
                 int duration = Toast.LENGTH_LONG;
-                Toast toast = Toast.makeText(context, "Carte envoyé par SMS", duration);
+                Toast toast = Toast.makeText(context, "Carte envoyé par SMS.", duration);
                 toast.show();
             }
         }

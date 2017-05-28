@@ -19,19 +19,6 @@ public class BusinessCard {
         this.address = "NC";
     }
 
-    public BusinessCard(String nom, String telephone, String email){
-        super();
-        this.nom = nom;
-        this.telephone = telephone;
-        if(email == null || email.equals("")){
-            this.email = "NC";
-        }
-        else {
-            this.email = email;
-        }
-        this.address = "NC";
-    }
-
     public BusinessCard(String nom, String telephone, String email, String address){
         super();
         this.nom = nom;

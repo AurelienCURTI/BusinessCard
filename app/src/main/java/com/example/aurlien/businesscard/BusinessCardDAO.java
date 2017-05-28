@@ -56,41 +56,49 @@ public class BusinessCardDAO extends DAOBase{
 
     public BusinessCard selectionner(long id) {
         Cursor c = mDb.rawQuery("select " + NOM + "," + TEL + " from " + TABLE_NAME + " where "+ID+ " = ?", new String[]{String.valueOf(id)});
-        if(c.getCount() == 1){
-            c.moveToFirst();
+        try {
+            if (c.getCount() == 1) {
+                c.moveToFirst();
 
-            String nom_res = c.getString(0);
-            String tel_res = c.getString(1);
-            String email_res = c.getString(2);
-            String address_res = c.getString(3);
-            c.close();
-            return new BusinessCard(nom_res, tel_res, email_res, address_res);
-        }
-        else {
-            c.close();
+                String nom_res = c.getString(0);
+                String tel_res = c.getString(1);
+                String email_res = c.getString(2);
+                String address_res = c.getString(3);
+                return new BusinessCard(nom_res, tel_res, email_res, address_res);
+            }
             return new BusinessCard(null, null, null, null);
+        }
+        finally {
+            c.close();
         }
     }
 
     public boolean isNew(BusinessCard card){
         Cursor c = mDb.rawQuery("select * from " + TABLE_NAME + " where "+NOM+ " = ? AND " + TEL + " = ?", new String[]{String.valueOf(card.getNom()), String.valueOf(card.getTelephone())});
-        if(c.getCount() >= 1){
-            return false;
+        try {
+            if (c.getCount() >= 1) {return false;}
+            return true;
         }
-        return true;
+        finally {
+            c.close();
+        }
     }
 
     public ArrayList<BusinessCard> recupererCartesBdd(){
         Cursor c = mDb.rawQuery("select * from " + TABLE_NAME, null);
         ArrayList<BusinessCard> cards = new ArrayList<BusinessCard>();
-        c.moveToFirst();
-        while (!c.isAfterLast()) {
-            BusinessCard card  = new BusinessCard(c.getString(1), c.getString(2), c.getString(3), c.getString(4));
-            card.setId(c.getInt(0));
-            cards.add(card);
-            c.moveToNext();
+        try {
+            c.moveToFirst();
+            while (!c.isAfterLast()) {
+                BusinessCard card = new BusinessCard(c.getString(1), c.getString(2), c.getString(3), c.getString(4));
+                card.setId(c.getInt(0));
+                cards.add(card);
+                c.moveToNext();
+            }
+            return cards;
         }
-        c.close();
-        return cards;
+        finally {
+            c.close();
+        }
     }
 }

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class DatabaseHandler extends SQLiteOpenHelper{
+    private static DatabaseHandler sInstance;
     public static final String BC_ID = "_id";
     public static final String BC_NOM = "nom";
     public static final String BC_TEL = "telephone";
@@ -26,8 +27,15 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
     public static final String METIER_TABLE_DROP = "DROP TABLE IF EXISTS " + BC_TABLE_NAME + ";";
 
-    public DatabaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    private DatabaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
+    }
+
+    public static DatabaseHandler getInstance(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        if (sInstance == null) {
+            sInstance = new DatabaseHandler(context, name, factory, version);
+        }
+        return sInstance;
     }
 
     @Override

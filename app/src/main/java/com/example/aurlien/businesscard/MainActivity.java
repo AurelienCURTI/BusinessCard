@@ -81,43 +81,49 @@ public class MainActivity extends AppCompatActivity {
                 // Interrogation de la base de données de contact du téléphone
                 Cursor cursor = getContentResolver()
                         .query(contactUri, projection, null, null, null);
-                cursor.moveToFirst();
+                try {
+                    cursor.moveToFirst();
 
-                // Retrouver le nom
-                int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
-                String nom = cursor.getString(column);
+                    // Retrouver le nom
+                    int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+                    String nom = cursor.getString(column);
 
-                // Retrouver le tableau
-                column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-                String numero = cursor.getString(column);
+                    // Retrouver le tableau
+                    column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                    String numero = cursor.getString(column);
 
 
-                while(emailCur.moveToNext()) {
-                    //long id = emailCur.getLong(emailCur.getColumnIndex(ContactsContract.Data.CONTACT_ID));
-                    String name = emailCur.getString(emailCur.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
-                    String dataEmail = emailCur.getString(emailCur.getColumnIndex(ContactsContract.Data.DATA1));
-                    if(name.equals(nom)){
-                        email = dataEmail;
+                    while (emailCur.moveToNext()) {
+                        //long id = emailCur.getLong(emailCur.getColumnIndex(ContactsContract.Data.CONTACT_ID));
+                        String name = emailCur.getString(emailCur.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
+                        String dataEmail = emailCur.getString(emailCur.getColumnIndex(ContactsContract.Data.DATA1));
+                        if (name.equals(nom)) {
+                            email = dataEmail;
+                        }
                     }
-                }
-                while(addresseCur.moveToNext()) {
-                    //long id = emailCur.getLong(emailCur.getColumnIndex(ContactsContract.Data.CONTACT_ID));
-                    String name = addresseCur.getString(addresseCur.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
-                    String dataAddress = addresseCur.getString(addresseCur.getColumnIndex(ContactsContract.Data.DATA1));
-                    if(name.equals(nom)){
-                        address = dataAddress;
+                    while (addresseCur.moveToNext()) {
+                        //long id = emailCur.getLong(emailCur.getColumnIndex(ContactsContract.Data.CONTACT_ID));
+                        String name = addresseCur.getString(addresseCur.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
+                        String dataAddress = addresseCur.getString(addresseCur.getColumnIndex(ContactsContract.Data.DATA1));
+                        if (name.equals(nom)) {
+                            address = dataAddress;
+                        }
                     }
+
+                    Intent intent = new Intent(MainActivity.this, SelectUsersDataActivity.class);
+                    //On passe ces données à l'autre activité
+                    intent.putExtra("K_NOM", nom);
+                    intent.putExtra("K_NUMERO", numero);
+                    intent.putExtra("K_EMAIL", email);
+                    intent.putExtra("K_ADDRESS", address);
+
+                    startActivity(intent);
                 }
-
-
-                Intent intent = new Intent(MainActivity.this, SelectUsersDataActivity.class);
-                //On passe ces données à l'autre activité
-                intent.putExtra("K_NOM", nom);
-                intent.putExtra("K_NUMERO", numero);
-                intent.putExtra("K_EMAIL", email);
-                intent.putExtra("K_ADDRESS", address);
-
-                startActivity(intent);
+                finally {
+                    cursor.close();
+                    emailCur.close();
+                    addresseCur.close();
+                }
             }
         }
     }
