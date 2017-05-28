@@ -25,14 +25,19 @@ public class BusinessCardDAO extends DAOBase{
     }
 
     public void ajouter(BusinessCard card){
-        ContentValues value = new ContentValues();
-        value.put(BusinessCardDAO.NOM, card.getNom());
-        value.put(BusinessCardDAO.TEL, card.getTelephone());
-        value.put(BusinessCardDAO.EMAIL, card.getEmail());
-        value.put(BusinessCardDAO.ADDRESS, card.getAddress());
-        long insertID = mDb.insert(BusinessCardDAO.TABLE_NAME, null, value);
-        if(insertID == -1) {
-            Log.e("BusinessCardDAO", "Erreur lors de l'insertion de " + card.toString() + " dans la base");
+        if(isNew(card)){
+            ContentValues value = new ContentValues();
+            value.put(BusinessCardDAO.NOM, card.getNom());
+            value.put(BusinessCardDAO.TEL, card.getTelephone());
+            value.put(BusinessCardDAO.EMAIL, card.getEmail());
+            value.put(BusinessCardDAO.ADDRESS, card.getAddress());
+            long insertID = mDb.insert(BusinessCardDAO.TABLE_NAME, null, value);
+            if(insertID == -1) {
+                Log.e("BusinessCardDAO", "Erreur lors de l'insertion de " + card.toString() + " dans la base");
+            }
+        }
+        else {
+            modifier(card);
         }
     }
 
@@ -65,6 +70,14 @@ public class BusinessCardDAO extends DAOBase{
             c.close();
             return new BusinessCard(null, null, null, null);
         }
+    }
+
+    public boolean isNew(BusinessCard card){
+        Cursor c = mDb.rawQuery("select * from " + TABLE_NAME + " where "+NOM+ " = ? AND " + TEL + " = ?", new String[]{String.valueOf(card.getNom()), String.valueOf(card.getTelephone())});
+        if(c.getCount() >= 1){
+            return false;
+        }
+        return true;
     }
 
     public ArrayList<BusinessCard> recupererCartesBdd(){

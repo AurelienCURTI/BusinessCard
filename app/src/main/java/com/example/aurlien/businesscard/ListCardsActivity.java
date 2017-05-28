@@ -28,8 +28,10 @@ public class ListCardsActivity extends ListActivity {
         bcardDao.open();
         listAdapter = new ArrayAdapter<String>(ListCardsActivity.this, android.R.layout.simple_list_item_1);
         lbcards = bcardDao.recupererCartesBdd();
+        int cpt = 1;
         for(BusinessCard card : lbcards){
-            listAdapter.add(card.toString());
+            listAdapter.add(cpt + ". Carte de : " + card.getNom());
+            cpt++;
         }
         getListView().setAdapter(listAdapter);
         ListView lv = getListView();

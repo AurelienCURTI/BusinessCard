@@ -15,11 +15,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
 
 import static com.example.aurlien.businesscard.MainActivity.PICK_CONTACT_REQUEST;
 

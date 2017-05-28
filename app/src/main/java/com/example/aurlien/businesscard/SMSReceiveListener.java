@@ -3,9 +3,6 @@ package com.example.aurlien.businesscard;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
@@ -35,7 +32,6 @@ public class SMSReceiveListener  extends BroadcastReceiver {
                     address = msgs[i].getOriginatingAddress();
                     str += msgs[i].getDisplayMessageBody();
                     str += "\n";
-
                     str = str.replace("(", "{");
                     str = str.replace(")","}");
                 }
@@ -54,19 +50,14 @@ public class SMSReceiveListener  extends BroadcastReceiver {
                     int duration = Toast.LENGTH_LONG;
                     Toast toast = Toast.makeText(context, "Vous avez reçu une carte par SMS", duration);
                     toast.show();
-                    Uri deleteUri = Uri.parse("content://sms");
-                    context.getContentResolver().delete(deleteUri, "address=?", new String[] {address});
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
-
         }
-
     }
 
-    public static SmsMessage[] getMessagesFromIntent(Intent intent) {
+    public SmsMessage[] getMessagesFromIntent(Intent intent) {
         Object[] messages = (Object[]) intent.getSerializableExtra("pdus");
         byte[][] pduObjs = new byte[messages.length][];
 
@@ -84,23 +75,5 @@ public class SMSReceiveListener  extends BroadcastReceiver {
         }
 
         return msgs;
-    }
-
-    private int deleteMessage(Context context, SmsMessage msg) {
-        Uri deleteUri = Uri.parse("content://sms");
-        int count = 0;
-        Cursor c = context.getContentResolver().query(deleteUri, null, null,
-                null, null);
-        while (c.moveToNext()) {
-            try {
-                // Delete the SMS
-                String pid = c.getString(0); // Get id;
-                String uri = "content://sms/" + pid;
-                count = context.getContentResolver().delete(Uri.parse(uri),
-                        null, null);
-            } catch (Exception e) {
-            }
-        }
-        return count;
     }
 }
