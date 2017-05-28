@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                         latitude = String.valueOf(location.getLatitude());
                     }
                     if (longitude == null){
-                        longitude = "122.0840";
+                        longitude = "-122.0840";
                     }
                     if (latitude == null){
                         latitude = "37.4220";

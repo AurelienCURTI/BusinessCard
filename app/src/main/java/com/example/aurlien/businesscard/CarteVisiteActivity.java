@@ -19,6 +19,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import java.util.ArrayList;
+
 import static com.example.aurlien.businesscard.MainActivity.PICK_CONTACT_REQUEST;
 
 /**
@@ -161,17 +163,31 @@ public class CarteVisiteActivity extends AppCompatActivity {
                 JSONObject object;
                 try{
                     object = new JSONObject();
-                    object.put("nom", card.getNom());
-                    object.put("numero", card.getTelephone());
-                    object.put("email", card.getEmail());
-                    object.put("adresse", card.getAddress());
-                    object.put("longitude", card.getLongitude());
-                    object.put("latitude", card.getLatitude());
+                    if(card.getNom().length() < 15){
+                        object.put("nm", card.getNom());
+                    }
+                    else{
+                        object.put("nm", card.getNom().substring(0, 15));
+                    }
+                    object.put("nb", card.getTelephone());
+                    if(card.getEmail().length() < 25){
+                        object.put("ml", card.getEmail());
+                    }
+                    else {
+                        object.put("ml", card.getEmail().substring(0, 25));
+                    }
+                    if(card.getAddress().length() < 35) {
+                        object.put("ad", card.getAddress());
+                    }
+                    else {
+                        object.put("ad", card.getAddress().substring(0, 35));
+                    }
+                    object.put("lo", card.getLongitude());
+                    object.put("la", card.getLatitude());
                     smsBody = object.toString();
                     smsBody = smsBody.replace("{", "(");
                     smsBody = smsBody.replace("}", ")");
 
-                    Log.d("TEST", smsBody);
                     smsManager.sendTextMessage(phoneNumber, null, smsBody, null, null);
                 }
                 catch (JSONException e) {

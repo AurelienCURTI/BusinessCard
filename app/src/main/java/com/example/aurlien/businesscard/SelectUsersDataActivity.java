@@ -53,7 +53,6 @@ public class SelectUsersDataActivity extends AppCompatActivity {
                 }
                 if (checkBox_address.isChecked()){
                     card.setAddress(address_val.getText().toString());
-                    //Log.d("TAG", address_val.getText().toString());
                 }
                 card.setLongitude(finalLongitude);
                 card.setLatitude(finalLatitude);

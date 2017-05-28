@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="Address"
         android:ems="10"
-        android:inputType="phone"
+        android:inputType="textPostalAddress"
         android:text="Address"
         android:layout_below="@+id/textView6"
         android:layout_toEndOf="@+id/textView6" />
