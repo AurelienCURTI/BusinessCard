@@ -51,6 +51,7 @@ public class BusinessCardDAO extends DAOBase{
         value.put(TEL, card.getTelephone());
         value.put(EMAIL, card.getEmail());
         value.put(ADDRESS, card.getAddress());
+        Log.d("TEST", String.valueOf(card.getId()));
         mDb.update(TABLE_NAME, value, ID  + " = ?", new String[] {String.valueOf(card.getId())});
     }
 
@@ -76,7 +77,11 @@ public class BusinessCardDAO extends DAOBase{
     public boolean isNew(BusinessCard card){
         Cursor c = mDb.rawQuery("select * from " + TABLE_NAME + " where "+NOM+ " = ? AND " + TEL + " = ?", new String[]{String.valueOf(card.getNom()), String.valueOf(card.getTelephone())});
         try {
-            if (c.getCount() >= 1) {return false;}
+            if (c.getCount() == 1) {
+                c.moveToFirst();
+                card.setId(c.getInt(0));
+                return false;
+            }
             return true;
         }
         finally {

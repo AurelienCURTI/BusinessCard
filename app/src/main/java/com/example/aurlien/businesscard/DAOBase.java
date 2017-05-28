@@ -21,7 +21,6 @@ public abstract class DAOBase {
     }
 
     public SQLiteDatabase open() {
-        // Pas besoin de fermer la dernière base puisque getWritableDatabase s'en charge
         mDb = mHandler.getWritableDatabase();
         return mDb;
     }
@@ -29,6 +28,5 @@ public abstract class DAOBase {
     public void close() {
         mDb.close();
     }
-
 
 }
